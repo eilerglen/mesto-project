@@ -1,7 +1,10 @@
 .profile__info {
   max-width: 336px;
   display: grid;
-  grid-template-columns: 284px 1fr;
-  grid-template-rows: auto 1fr;
-
+  grid-template-columns: minmax(auto, 294px) auto;
+  grid-template-areas: 
+  "title button"
+  "subtitle subtitle";
+  grid-column-gap: 18px;
+  grid-row-gap: 16px;
 }

@@ -7,5 +7,8 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: 10px 10px;
+    grid-area: button;
+    align-self: flex-end;
+    
 
 }

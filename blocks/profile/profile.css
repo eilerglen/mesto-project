@@ -3,7 +3,7 @@
   max-width: 880px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   border: solid 1px green;
 
 
