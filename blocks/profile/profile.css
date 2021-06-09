@@ -1,0 +1,11 @@
+.profile {
+  align-self: flex-start;
+  max-width: 880px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  border: solid 1px green;
+
+
+
+}

@@ -1,0 +1,9 @@
+.footer__copyright {
+  align-self: flex-start;
+  text-align: left;
+  color: #545454;
+  font-size: 18px;
+  line-height: 22px;
+  border: solid 1px yellow;
+  margin: 0;
+}
