@@ -1,0 +1,10 @@
+.popap__button {
+  margin-top: 48px;
+  width: 100%;
+  height: 50px;
+  font-size: 18px;
+  line-height: 22px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+}

@@ -1,0 +1,15 @@
+.popap__close {
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  top: -36px;
+  right: -34px;
+  background-image: url(../../../images/closeicon.svg);
+  background-position: center;
+  background-color: black;
+  border: none;
+  cursor: pointer;
+
+
+
+}

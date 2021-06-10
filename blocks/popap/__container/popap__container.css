@@ -1,0 +1,10 @@
+.popap__container {
+  max-width: 430px;
+  min-height: 300px;
+  background-color: #fff;
+  position: relative;
+  border-radius: 10px;
+  box-sizing: border-box;
+  padding: 36px 30px;
+  opacity: 1;
+}

@@ -6,4 +6,16 @@
   line-height: 22px;
   border: solid 1px yellow;
   margin: 0;
+  padding: 0;
 }
+
+@media (max-width: 760px) {
+  .footer__copyright {
+    font-size: 14px;
+    line-height: 17px;
+    padding-left: 19px;
+    padding-right: 19px;
+
+  }
+}
+

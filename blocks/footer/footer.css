@@ -1,3 +1,11 @@
 .footer {
   border: solid 1px green;
 }
+
+@media (max-width: 760px) {
+  .footer {
+    max-width: 282px;
+    padding: 0;
+    margin: 0;
+  }
+}

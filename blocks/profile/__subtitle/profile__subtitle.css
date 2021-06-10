@@ -5,3 +5,12 @@
     padding: 0;
     grid-area: subtitle;
 }
+
+
+@media screen and (max-width: 760px) {
+    .profile__subtitle {
+      width: 282px;
+      font-size: 14px;
+      line-height: 17px;
+    }
+  }

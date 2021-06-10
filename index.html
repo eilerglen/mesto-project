@@ -11,7 +11,6 @@
   <!--header-->
   <header class = "header page__content">
     <img src="images/Vector.svg" alt="Лого страницы" class="header__logo">
-    <img src="images/Line.svg" alt="Линия" class="">
   </header>
 
   <!--Начинается основной контент страницы-->
@@ -21,69 +20,60 @@
     <section class = "profile">
       <img src = "images/image.png" alt = "Изображение Кусто" class = "profile__avatar">
       <div class = "profile__info">
-        <h1 class = "profile__title">Жак-Ив Кусто </h1>
+        <h1 class = "profile__title">Жак-Ив Кустo</h1>
         <button class = "profile__edit-button " type = "button"></button>
-        <p class = "profile__subtitle"> Исследователь океана </p>
+        <p class = "profile__subtitle"> Исследователь океана</p>
       </div>
-      <button class = "profile__add-button"> </button>
+      <button class = "profile__add-button profile_position" type = "button"></button>
     </section>
-    <!--form-->
-    <form class="popap">
-      <h2 class = "popap__heading"> Редактировать профиль </h2>
-      <fieldset class="form__contact-info">
-        <input type="text" class="">
-        <input type="text" class = "">
-          <!-- Элементы формы для получения данных о пользователе -->
-      </fieldset>
-      <input type = "submit" class = "form__button">
-  </form>
-    <!--cards-->
+
+    <!--places-->
     <section class = "places">
       <ul class="places__list">
-        <li class = "places__item place">
-          <img src = "images/kirill-pershin-1088404-unsplash.png" alt = "Изображение Кусто" class = "place__img">
+        <li class = "place">
+          <img src = "images/Валдай Зимой.jpg" alt = "Локация Валдай" class = "place__img">
           <div class = "place__description">
-            <h2 class = "place__title"> Карачаевск </h2>
-            <img src = "images/heart.svg" alt = "Изображение Кусто" class = "place__icon">
+            <h2 class = "place__title"> Валдай</h2>
+            <img src = "images/heart.svg" alt = "Лайк" class = "place__icon">
           </div>
         </li>
-        <li class = "places__item place">
-          <img src = "images/kirill-pershin-1088404-unsplash.png" alt = "Изображение Кусто" class = "place__img">
+        <li class = " place">
+          <img src = "images/Кондуки.jpg" alt = "Локация Кондуки" class = "place__img">
           <div class = "place__description">
-            <h2 class = "place__title"> Карачаевск </h2>
-            <img src = "images/heart.svg" alt = "Изображение Кусто" class = "place__icon">
-          </div>
-        </li>
-
-        <li class = "places__item place">
-          <img src = "images/kirill-pershin-1088404-unsplash.png" alt = "Изображение Кусто" class = "place__img">
-          <div class = "place__description">
-            <h2 class = "place__title"> Карачаевск </h2>
-            <img src = "images/heart.svg" alt = "Изображение Кусто" class = "place__icon">
+            <h2 class = "place__title"> Кондуки </h2>
+            <img src = "images/heart.svg" alt = "Лайк" class = "place__icon">
           </div>
         </li>
 
-        <li class = "places__item place">
-          <img src = "images/kirill-pershin-1088404-unsplash.png" alt = "Изображение Кусто" class = "place__img">
+        <li class = "place">
+          <img src = "images/Казань.jpg" alt = "Локация Казань" class = "place__img">
           <div class = "place__description">
-            <h2 class = "place__title"> Карачаевск </h2>
-            <img src = "images/heart.svg" alt = "Изображение Кусто" class = "place__icon">
+            <h2 class = "place__title"> Казань </h2>
+            <img src = "images/heart.svg" alt = "Лайк" class = "place__icon">
           </div>
         </li>
 
-        <li class = "places__item place">
-          <img src = "images/kirill-pershin-1088404-unsplash.png" alt = "Изображение Кусто" class = "place__img">
+        <li class = "place">
+          <img src = "images/Абхазия.jpg" alt = "Локация Абхазия" class = "place__img">
           <div class = "place__description">
-            <h2 class = "place__title"> Карачаевск </h2>
-            <img src = "images/heart.svg" alt = "Изображение Кусто" class = "place__icon">
+            <h2 class = "place__title"> Абхазия</h2>
+            <img src = "images/heart.svg" alt = "Лайк" class = "place__icon">
           </div>
         </li>
 
-        <li class = "places__item place">
-          <img src = "images/kirill-pershin-1088404-unsplash.png" alt = "Изображение Кусто" class = "place__img">
+        <li class = "place">
+          <img src = "images/Закаменск.jpg" alt = "локация Закаменск" class = "place__img">
           <div class = "place__description">
-            <h2 class = "place__title"> Карачаевск </h2>
-            <img src = "images/heart.svg" alt = "Изображение Кусто" class = "place__icon">
+            <h2 class = "place__title"> Закаменск</h2>
+            <img src = "images/heart.svg" alt = "Лайк" class = "place__icon">
+          </div>
+        </li>
+
+        <li class = "place">
+          <img src = "images/Байкал.jpg" alt = "Локация Байкал" class = "place__img">
+          <div class = "place__description">
+            <h2 class = "place__title">Байкал</h2>
+            <img src = "images/heart.svg" alt = "Лайк" class = "place__icon">
           </div>
         </li>
       </ul>
@@ -93,5 +83,17 @@
   <footer class = "footer page__content">
     <p class = "footer__copyright"> &copy;2021 Глен Зангеев </p>
   </footer>
+
+  <!--popap-->
+  <div class = "popap">
+    <div class = "popap__container">
+      <button class = "popap__close"> </button>
+      <h2 class = "popap__title">Редактировать профиль</h2>
+      <form class="popap__form">
+        <input type="text" class="popap__input" placeholder="Жак Ив Кусто">
+        <input type="text" class = "popap__input" placeholder="Исследователь">
+        <button class = "popap__button"> Сохранить </button>
+    </form>
+  </div>
 </body>
 </html>

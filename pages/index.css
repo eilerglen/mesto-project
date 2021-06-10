@@ -23,11 +23,12 @@
 @import url(../blocks/profile/__subtitle/profile__subtitle.css);
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
+@import url(../blocks/profile/_position/profile_position.css);
 
 /* places */
-@import url(../blocks/cards/places.css);
+@import url(../blocks/places/places.css);
 @import url(../blocks/places/__list/places__list.css);
-@import url(../blocks/places/__item/cards__item.css);
+@import url(../blocks/places/__item/places__item.css);
 /* place */
 @import url(../blocks/place/place.css);
 @import url(../blocks/place/__img/place__img.css);
@@ -36,7 +37,15 @@
 
 
 /* popap */
-@import url(../blocks/popap/__heading/popap__heading.css);
+@import url(../blocks/popap/popap.css);
+@import url(../blocks/popap/_opened/popap_opened.css);
+@import url(../blocks/popap/__container/popap__container.css);
+@import url(../blocks/popap/__close/popap__close.css);
+@import url(../blocks/popap/__title/popap__title.css);
+@import url(../blocks/popap/__form/popap__form.css);
+@import url(../blocks/popap/__label/popap__label.css);
+@import url(../blocks/popap/__input/popap__input.css);
+@import url(../blocks/popap/__button/popap__button.css);
 
 /* footer */
 @import url(../blocks/footer/__copyright/footer__copyright.css);
