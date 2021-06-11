@@ -2,10 +2,16 @@
   border: solid 1px green;
 }
 
-@media (max-width: 760px) {
+
+@media (max-width: 880px) {
+  .footer {
+    padding: 48px 20px 36px;
+  }
+}
+
+@media (max-width: 485px) {
   .footer {
     max-width: 282px;
-    padding: 0;
-    margin: 0;
+    padding: 48px 0 36px;
   }
 }

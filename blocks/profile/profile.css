@@ -1,16 +1,23 @@
 .profile {
-  align-self: flex-start;
   display: flex;
   align-items: center;
   padding-top: 40px;
   padding-bottom: 51px;
 }
 
-@media screen and (max-width: 1020px) {
+@media screen and (max-width: 880px) {
   .profile {
-    padding: 43px 19px;
-    justify-content: center;
+    padding: 42px 40px 35px;
+  }
+}
+
+@media screen and (max-width: 760px) {
+  .profile {
+    align-self: center;
+    max-width: 282px;
+    padding: 42px 0;
     flex-direction: column;
     text-align: center;
+    justify-content: center;
   }
-} 
+}

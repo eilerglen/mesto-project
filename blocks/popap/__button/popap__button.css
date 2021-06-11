@@ -8,3 +8,10 @@
   color: #fff;
   border: none;
 }
+
+@media screen and (max-width: 560px) {
+  .popap__button {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

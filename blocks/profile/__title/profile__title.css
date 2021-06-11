@@ -4,11 +4,14 @@
   font-weight: 500;
   margin: 0;
   grid-area: title;
-  
+  white-space: nowrap;
 }
+
+
 
 @media screen and (max-width: 760px) {
   .profile__title {
+    text-align: center;
     width: 189px;
     font-size: 27px;
     line-height: 33px;

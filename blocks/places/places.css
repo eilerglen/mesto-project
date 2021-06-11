@@ -1,10 +1,5 @@
 .places {
   padding-bottom: 50px;
-  border: solid 1px green;
+
 }
 
-@media screen and (max-width: 760px) {
-  .places {
-    padding-left: 17px;
-    padding-right: 17px;
-  }

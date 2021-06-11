@@ -8,3 +8,11 @@
   padding: 36px 30px;
   opacity: 1;
 }
+
+
+@media screen and (max-width: 760px) {
+  .popap__container {
+    width: 282px;
+    padding: 25px 22px;
+  }
+}

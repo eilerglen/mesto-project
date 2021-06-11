@@ -5,3 +5,11 @@
   line-height: 29px;
   font-weight: 900;
 }
+
+@media screen and (max-width: 760px) {
+  .popap__title {
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+  }
+}
