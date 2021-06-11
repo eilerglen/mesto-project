@@ -1,17 +1,18 @@
 .footer {
-  border: solid 1px green;
+  padding-bottom: 60px;
 }
 
 
 @media (max-width: 880px) {
   .footer {
-    padding: 48px 20px 36px;
+    max-width: 581px;
+    padding-bottom: 36px;
+    
   }
 }
 
 @media (max-width: 485px) {
   .footer {
     max-width: 282px;
-    padding: 48px 0 36px;
   }
 }

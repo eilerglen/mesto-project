@@ -8,9 +8,15 @@
     background-position: center;
     background-size: 10px 10px;
     grid-area: button;
-    align-self: center;
+    align-self: flex-end;
+    cursor: pointer;
+    transition: opacity .7s linear;
+  
 }
 
+.profile__edit-button:hover {
+  opacity: .5;
+}
 
 @media screen and (max-width: 760px) {
   .profile__edit-button {

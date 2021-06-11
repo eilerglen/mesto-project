@@ -9,8 +9,13 @@
     background-image: url(../../../images/plus.svg);
     background-repeat: no-repeat;
     background-position: center;
-}
+    cursor: pointer;
+    transition: opacity .7s linear;
+ }
 
+ .profile__add-button:hover {
+  opacity: .5;
+}
 
 @media screen and (max-width: 760px) {
     .profile__add-button {

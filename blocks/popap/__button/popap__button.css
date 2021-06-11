@@ -7,10 +7,19 @@
   background-color: #000;
   color: #fff;
   border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: opacity .7s linear;
+
+}
+
+.popap__button:hover {
+  opacity: .5;
 }
 
 @media screen and (max-width: 560px) {
   .popap__button {
+    margin-top: 45px;
     font-size: 14px;
     line-height: 17px;
   }

@@ -7,10 +7,14 @@
   right: -40px;
   background-image: url(../../../images/closeicon.svg);
   background-position: center;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0);
   border: none;
   cursor: pointer;
-  border: solid 1px green;
+  transition: opacity .7s linear;
+}
+
+.popap__close:hover {
+  opacity: .5;
 }
 
 @media screen and (max-width: 760px) {
