@@ -7,24 +7,21 @@
   <title> Mesto </title>
 </head>
 <body class = "page">
-
   <!--header-->
   <header class = "header page__content">
     <img src="images/Vector.svg" alt="Лого страницы" class="header__logo">
   </header>
-
-  <!--Начинается основной контент страницы-->
-
+  <!--Начинается основной контент страницы...-->
   <main class = "content page__content">
     <!--profile-->
     <section class = "profile">
       <img src = "images/image.png" alt = "Изображение Кусто" class = "profile__avatar">
       <div class = "profile__info">
         <h1 class = "profile__title">Жак-Ив Кустo</h1>
-        <button class = "profile__edit-button " type = "button"></button>
+        <button type = "button" aria-label = "Edit profile" class = "profile__edit-button " ></button>
         <p class = "profile__subtitle"> Исследователь океана</p>
       </div>
-      <button class = "profile__add-button profile_position" type = "button"></button>
+      <button type = "button" aria-label = "Add new location" class = "profile__add-button profile_position" ></button>
     </section>
 
     <!--places-->
@@ -33,15 +30,15 @@
       <ul class="places__list">
          <!--Локация 1-->
         <li class = "place">
-          <img src = "images/Курильские острова.JPG" alt = "Локация Курильские острова" class = "place__img">
+          <img src = "images/Чечня.JPG" alt = "Казеноям" class = "place__img">
           <div class = "place__description">
-            <h2 class = "place__title"> Курильские острова</h2>
+            <h2 class = "place__title">Казеноям</h2>
             <img src = "images/heart.svg" alt = "Лайк" class = "place__icon">
           </div>
         </li>
          <!--Локация 2-->
         <li class = "place">
-          <img src = "images/Кондуки.jpg" alt = "Локация Кондуки" class = "place__img">
+          <img src = "images/Кондуки.jpg" alt = "Кондуки" class = "place__img">
           <div class = "place__description">
             <h2 class = "place__title"> Кондуки </h2>
             <img src = "images/heart.svg" alt = "Лайк" class = "place__icon">
@@ -49,15 +46,15 @@
         </li>
          <!--Локация 3-->
         <li class = "place">
-          <img src = "images/Чечня.JPG" alt = "Локация Чечня" class = "place__img">
+          <img src = "images/Курильские%20острова.JPG" alt = "Курильские острова" class = "place__img">
           <div class = "place__description">
-            <h2 class = "place__title"> Чечня </h2>
+            <h2 class = "place__title">Курильские острова</h2>
             <img src = "images/heart.svg" alt = "Лайк" class = "place__icon">
           </div>
         </li>
          <!--Локация 4-->
         <li class = "place">
-          <img src = "images/Абхазия.jpg" alt = "Локация Абхазия" class = "place__img">
+          <img src = "images/Абхазия.jpg" alt = "Абхазия" class = "place__img">
           <div class = "place__description">
             <h2 class = "place__title"> Абхазия</h2>
             <img src = "images/heart.svg" alt = "Лайк" class = "place__icon">
@@ -65,15 +62,15 @@
         </li>
          <!--Локация 5-->
         <li class = "place">
-          <img src = "images/Бурятия.jpg" alt = "локация Закаменск" class = "place__img">
+          <img src = "images/Валдай%20Зимой.jpg" alt = "Валдай" class = "place__img">
           <div class = "place__description">
-            <h2 class = "place__title"> Закаменск</h2>
+            <h2 class = "place__title"> Валдай</h2>
             <img src = "images/heart.svg" alt = "Лайк" class = "place__icon">
           </div>
         </li>
         <!--Локация 6-->
         <li class = "place">
-          <img src = "images/Байкал.jpg" alt = "Локация Байкал" class = "place__img">
+          <img src = "images/Байкал.jpg" alt = "Байкал" class = "place__img">
           <div class = "place__description">
             <h2 class = "place__title">Байкал</h2>
             <img src = "images/heart.svg" alt = "Лайк" class = "place__icon">
@@ -84,19 +81,21 @@
   </main>
  <!--Начинается блок footer-->
   <footer class = "footer page__content">
-    <p class = "footer__copyright"> &copy;2021 Глен Зангеев </p>
+    <p class = "footer__copyright">&copy;2021 Глен Зангеев</p>
   </footer>
 
   <!--popap или всплывающее окно-->
-  <div class = "popap >
+  <!--popap вызывается добавлением модификатора popap_opened к блоку с классом - popap. Пока его придется добавлять/удалять вручную-->
+  <div class = "popap">
     <div class = "popap__container">
-      <button class = "popap__close"> </button>
+      <button type= "button" aria-label = "closePopap" class = "popap__close"> </button>
       <h2 class = "popap__title">Редактировать профиль</h2>
-      <form class="popap__form">
-        <input type="text" class="popap__input" placeholder=" Жак Ив Кусто ">
-        <input type="text" class = "popap__input" placeholder=" Исследователь ">
-        <button class = "popap__button"> Сохранить </button>
-    </form>
+      <form class="popap__form" name = "dataPerson">
+        <input type="text" name = "userName" class="popap__input" placeholder = "Жак Ив Кусто">
+        <input type="text" name = "profession" class = "popap__input" placeholder="Исследователь">
+        <button type = "submit" aria-label = "save" class = "popap__button"> Сохранить </button>
+      </form>
+    </div>
   </div>
 </body>
 </html>

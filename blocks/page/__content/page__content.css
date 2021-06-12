@@ -4,9 +4,3 @@
   box-sizing: border-box;
 
 }
-
-@media (max-width: 760px) {
-  .page__content {
-
-  }
-}
