@@ -10,12 +10,11 @@
     grid-area: button;
     align-self: flex-end;
     cursor: pointer;
-    transition: opacity .7s linear;
-  
+    transition: opacity .7s linear; 
 }
 
 .profile__edit-button:hover {
-  opacity: .5;
+  opacity: .6;
 }
 
 @media screen and (max-width: 760px) {

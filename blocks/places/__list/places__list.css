@@ -8,16 +8,14 @@
   justify-content: center;
   grid-column-gap: 17px;
   grid-row-gap: 20px;
-
 }
 
 
 @media screen and (max-width: 1020px) {
   .places__list {
     gap: 17px 20px;
-
   }
-
+}
 
 @media screen and (max-width: 760px) {
   .places__list {

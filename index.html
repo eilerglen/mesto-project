@@ -15,13 +15,13 @@
   <main class = "content page__content">
     <!--profile-->
     <section class = "profile">
-      <img src = "images/image.png" alt = "Изображение Кусто" class = "profile__avatar">
+      <img src = "images/jacq.jpg" alt = "Изображение Кусто" class = "profile__avatar">
       <div class = "profile__info">
         <h1 class = "profile__title">Жак-Ив Кустo</h1>
-        <button type = "button" aria-label = "Edit profile" class = "profile__edit-button " ></button>
+        <button type = "button" aria-label = "Редактировать профиль" class = "profile__edit-button " ></button>
         <p class = "profile__subtitle"> Исследователь океана</p>
       </div>
-      <button type = "button" aria-label = "Add new location" class = "profile__add-button profile_position" ></button>
+      <button type = "button" aria-label = "Добавить новую локацию" class = "profile__add-button" ></button>
     </section>
 
     <!--places-->
@@ -84,16 +84,16 @@
     <p class = "footer__copyright">&copy;2021 Глен Зангеев</p>
   </footer>
 
-  <!--popap или всплывающее окно-->
-  <!--popap вызывается добавлением модификатора popap_opened к блоку с классом - popap. Пока его придется добавлять/удалять вручную-->
-  <div class = "popap">
-    <div class = "popap__container">
-      <button type= "button" aria-label = "closePopap" class = "popap__close"> </button>
-      <h2 class = "popap__title">Редактировать профиль</h2>
-      <form class="popap__form" name = "dataPerson">
-        <input type="text" name = "userName" class="popap__input" placeholder = "Жак Ив Кусто">
-        <input type="text" name = "profession" class = "popap__input" placeholder="Исследователь">
-        <button type = "submit" aria-label = "save" class = "popap__button"> Сохранить </button>
+  <!--popup или всплывающее окно-->
+  <!--popup вызывается добавлением модификатора popap_opened к блоку с классом - popup. Пока его придется добавлять/удалять вручную-->
+  <div class = "popup">
+    <div class = "popup__container">
+      <button type= "button" aria-label = "Закрыть всплывающее окно" class = "popup__close"> </button>
+      <h2 class = "popup__title">Редактировать профиль</h2>
+      <form class="popup__form" name = "person-data">
+        <input type="text" name = "username" class="popup__input" placeholder = "Жак Ив Кусто">
+        <input type="text" name = "profession" class = "popup__input" placeholder="Исследователь">
+        <button type = "submit" aria-label = "Сохранить" class = "popup__button"> Сохранить </button>
       </form>
     </div>
   </div>
