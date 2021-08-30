@@ -156,3 +156,29 @@ function addFormSubmit (evt) {
 formAddNewPlace.addEventListener('submit', addFormSubmit);
 
 
+const obj = {
+  formSelector: 'popup__form',
+  inputSelector: 'popup__input',
+  submitButtonSelector: '.popup__button-submit',
+  errorClass: 'popup__error'
+}
+
+enableValidation(obj)
+
+function enableValidation({formSelector, inputSelector, submitButtonSelector, errorClass}) {
+  const forms = Array.from(document.querySelectorAll(formSelector))
+  forms.forEach(form => {
+    form.addEventListener('submit', e => e.preventDefault())
+    const inputs = form.querySelectorAll(inputSelector)
+    inputs.addEventListener('input', e => {
+      console.log(input.validity)
+      if(input.validity.valid) {
+         
+      }
+      else {
+        
+      }
+    })
+  })
+
+}
