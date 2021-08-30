@@ -31,6 +31,12 @@ function closePopup(popup) {
  popup.classList.remove("popup_opened");
 }
 
+function handlerClosePopupEsc (evt) {
+  if(evt.key = 'Escape') {
+    
+  }
+}
+
 //Открытие popup редактирования
 editButton.addEventListener('click', () => {
   inputEditProfileName.value = profileName.textContent;
