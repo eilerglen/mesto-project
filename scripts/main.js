@@ -171,10 +171,10 @@ function enableValidation({formSelector, inputSelector, submitButtonSelector, er
     inputs.forEach(input => {
       input.addEventListener('input', e => {
         console.log(input.validationMessage)
-        if(input.validity.valid) {
+        if(!input.validity.valid) {
           const errorPlace = document.querySelector(`.${input.id}-error`);
           errorPlace.textContent = input.validationMessage;
-          errorPlace.classList.add(errorClass);
+          errorPlace.classList.add('.popup__error_visible');
           
         //** скрыть ошибку под полем*/
        } else {
