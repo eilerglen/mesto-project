@@ -67,8 +67,8 @@ let profileName = document.querySelector('.profile__title');
 let profileProfession = document.querySelector('.profile__subtitle');
 
 let formEditProfileInfo = popupEdit.querySelector('.popup__form');
-let inputEditProfileName = popupEdit.querySelector('#user-name');
-let inputEditProfileProf = popupEdit.querySelector('#user-profession');
+let inputEditProfileName = popupEdit.querySelector('#username');
+let inputEditProfileProf = popupEdit.querySelector('#profession');
 
 
 
@@ -158,7 +158,7 @@ const obj = {
   formSelector:'.popup__form',
   inputSelector:'.popup__input',
   submitButtonSelector:'.popup__button-submit',
-  errorClass: '.popup__error_active'
+  errorClass: '.popup__error_visible',
 }
 
 enableValidation(obj)
@@ -166,18 +166,23 @@ enableValidation(obj)
 function enableValidation({formSelector, inputSelector, submitButtonSelector, errorClass}) {
   const forms = Array.from(document.querySelectorAll(formSelector));
   forms.forEach(form => {
-    form.addEventListener('submit', e => e.preventDefault())
-
-    const inputs = form.querySelectorAll(inputSelector)
+    form.addEventListener('submit', e => e.preventDefault());
+    const inputs = form.querySelectorAll(inputSelector);
     inputs.forEach(input => {
-      input.addEventListener('input', e=> {
-       if(input.validity.valid) {
+      input.addEventListener('input', e => {
+        console.log(input.validationMessage)
+        if(input.validity.valid) {
+          const errorPlace = document.querySelector(`.${input.id}-error`);
+          errorPlace.textContent = input.validationMessage;
+          errorPlace.classList.add(errorClass);
+          
         //** скрыть ошибку под полем*/
        } else {
-         const errorPlace = document.querySelector(`.${input.id}-error`);
-         console.log(errorPlace);
-         /*errorPlace.textContent = input.validationMessage;
-         errorPlace.classListAdd(errorClass);*/
+          const errorPlace = document.querySelector(`.${input.id}-error`);
+          errorPlace.textContent = '';
+          errorPlace.classList.remove(errorClass)
+         
+         /*errorPlace.classListAdd(errorClass);*/
            //** показать ошибку под полем*/
          }
       })
