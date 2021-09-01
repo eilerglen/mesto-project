@@ -1,9 +1,12 @@
+import {initialCards} from './components/initial-cards.js';
+import {createCard} from './components/card.js';
+
 /*инициация всех попапов на странице*/
-let popupEdit = document.querySelector(".popup_edit");
-let popupNewCard = document.querySelector('.popup_new-card');
-let popupImage = document.querySelector('.popup_image');
-let placeImageScale = popupImage.querySelector('.popup__image');
-let placeImageScaleCaption = popupImage.querySelector('.popup__caption');
+const popupEdit = document.querySelector(".popup_edit");
+const popupNewCard = document.querySelector('.popup_new-card');
+export const popupImage = document.querySelector('.popup_image');
+export const placeImageScale = popupImage.querySelector('.popup__image');
+export const placeImageScaleCaption = popupImage.querySelector('.popup__caption');
 
 /*Кнопки открытия попапов */
 let editButton = document.querySelector('.profile__edit-button');
@@ -11,9 +14,9 @@ let addButton = document.querySelector('.profile__add-button');
 /*let imageButton = document.querySelector('.profile__add-button');*/
 
 /*Кнопки закрытия попапов */
-let popupCloseEdit = popupEdit.querySelector('.popup__close');
-let popupCloseNewCard = popupNewCard.querySelector('.popup__close');
-let popupCloseImage = popupImage.querySelector('.popup__close');
+const popupCloseEdit = popupEdit.querySelector('.popup__close');
+const popupCloseNewCard = popupNewCard.querySelector('.popup__close');
+export const popupCloseImage = popupImage.querySelector('.popup__close');
 
 /*Задаем переменные для DOM формы и полей создания карточки*/
 
@@ -22,12 +25,12 @@ let inputAddTitle = popupNewCard.querySelector('#place');
 let inputAddLink = popupNewCard.querySelector('#link');
 
 //обработка открытия popup
-function openPopup(popup) {
+export function openPopup(popup) {
   popup.classList.add('popup_opened')
 }
 
 //обработка закрытия popup
-function closePopup(popup) {
+export function closePopup(popup) {
  popup.classList.remove("popup_opened");
 }
 
@@ -86,63 +89,19 @@ formEditProfileInfo.addEventListener('submit', editFormSubmit);
 
 /*Обозначаем контейнер, куда карточки могут добавляться*/
 const placesList = document.querySelector('.places__list');
-let templatePlace = document.querySelector('#template-place').content;
-
-/*Функция создания карточки*/
-function createCard(data) {
-  let placeItem = templatePlace.querySelector('.place').cloneNode(true);
-  /*берем данные из словаря или формы для рендеринга контента карточки*/
-  let placeImg = placeItem.querySelector('.place__img');
-  let placeTitle = placeItem.querySelector('.place__title');
-  placeImg.setAttribute('src', data.link);
-  placeImg.setAttribute('alt', data.name);
-  placeTitle.textContent = data.name;
-
- /*Вешаем обработчик на кнопку лайка. Здесь можно простой колбэк*/
-  let placeIconLike = placeItem.querySelector('.place__icon');
-  placeIconLike.addEventListener('click', function(evt) {
-    const eventTarget = evt.target;
-    eventTarget.classList.toggle('place__icon_active');
-  });
-
- /*Вешаем обработчик на удаление карточки. Здесь можно простой колбэк или запилить отдельную функцию*/
-  let placeDeleteButton = placeItem.querySelector('.place__delete-button');
-
-  placeDeleteButton.addEventListener('click', function() {
-    let deletePlaceItem = placeDeleteButton.closest('.place');
-    deletePlaceItem.remove();
-  });
- //Открытие popup картинки
-  placeImg.addEventListener('click', () => {
-    placeImageScale.src = data.link;
-    placeImageScale.alt = data.name;
-    placeImageScaleCaption.textContent = data.name;
-    openPopup(popupImage);
+const templatePlace = document.querySelector('#template-place').content;
 
 
-
-  });
-  //Закрытие popup картинки
-  popupCloseImage.addEventListener('click', () => {
-  closePopup(popupImage)
-  });
-
-  return placeItem;
-}
+/*Вызов функции добавления карточек "из коробки на страницу" на страницу в цикле по массиву*/
+initialCards.forEach((item) => {
+  addCard(item, placesList)
+});
 
 /*Функция добавления карточки на страницу*/
 function addCard (data, container) {
   let place = createCard(data);
   container.prepend(place);
 }
-
-
-/*Вызов функции добавления карточек "из коробки на страницу" на страницу в цикле по массиву*/
-
-initialCards.forEach((item) => {
-  addCard(item, placesList)
-});
-
 
 /*Вызов функции создания новой карточки*/
 function addFormSubmit (evt) {
@@ -217,3 +176,5 @@ function enableValidation({formSelector, inputSelector, submitButtonSelector, in
 }
 
 enableValidation(obj);
+
+export {templatePlace};
