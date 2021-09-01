@@ -157,27 +157,50 @@ formAddNewPlace.addEventListener('submit', addFormSubmit);
 const obj = {
   formSelector:'.popup__form',
   inputSelector:'.popup__input',
-  submitButtonSelector:'.popup__button-submit',
+  inputErrorClass: 'popup__input_type_error',
+  submitButtonSelector: '.popup__button',
+  inActiveButtonClass: 'popup__button_disabled',
   errorClass: '.popup__error_visible',
 }
 
-enableValidation(obj)
+const hasInvalidInput = (inputs) => {
+  return inputs.some((input) => {
+      return !input.validity.valid
+  });
+} 
 
-function enableValidation({formSelector, inputSelector, submitButtonSelector, errorClass}) {
+const toggleButtonState = (inputList,  buttonSubmit) => {
+  // Если есть хотя бы один невалидный инпут
+  if (hasInvalidInput(inputList)) {
+    // сделай кнопку неактивной
+    buttonSubmit.classList.add(obj.inActiveButtonClass);
+    /*buttonSubmit.disabled = true;*/
+  } else {
+        // иначе сделай кнопку активной
+        buttonSubmit.classList.remove(obj.inActiveButtonClass);
+        buttonSubmit.disabled = false;
+  }
+}; 
+
+
+function enableValidation({formSelector, inputSelector, submitButtonSelector, inputErrorClass, inActiveButtonClass, errorClass}) {
   const forms = Array.from(document.querySelectorAll(formSelector));
+ 
   forms.forEach(form => {
     form.addEventListener('submit', e => e.preventDefault());
-    const inputs = form.querySelectorAll(inputSelector);
+    const buttonSubmit = form.querySelector(submitButtonSelector);
+    const inputs = Array.from(form.querySelectorAll(inputSelector));
+    toggleButtonState(inputs, buttonSubmit);
     inputs.forEach(input => {
       input.addEventListener('input', e => {
-        console.log(input.validationMessage)
         if(!input.validity.valid) {
+          input.classList.add(inputErrorClass);
           const errorPlace = document.querySelector(`.${input.id}-error`);
           errorPlace.textContent = input.validationMessage;
-          errorPlace.classList.add('.popup__error_visible');
-          
+          errorPlace.classList.add(errorClass); 
         //** скрыть ошибку под полем*/
-       } else {
+        } else {
+          input.classList.remove(inputErrorClass);
           const errorPlace = document.querySelector(`.${input.id}-error`);
           errorPlace.textContent = '';
           errorPlace.classList.remove(errorClass)
@@ -185,7 +208,12 @@ function enableValidation({formSelector, inputSelector, submitButtonSelector, er
          /*errorPlace.classListAdd(errorClass);*/
            //** показать ошибку под полем*/
          }
+          
+        toggleButtonState(inputs, buttonSubmit);
       })
     })
-  })
+    
+  });        // иначе сделай кнопку активной
 }
+
+enableValidation(obj);
