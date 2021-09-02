@@ -5,19 +5,22 @@ export const popupImage = document.querySelector('.popup_image');
 export const placeImageScale = popupImage.querySelector('.popup__image');
 export const placeImageScaleCaption = popupImage.querySelector('.popup__caption');
 
+
 //обработка открытия popup
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', ClosePopupEsc);
 }
 
 //обработка закрытия popup
 function closePopup(popup) {
  popup.classList.remove("popup_opened");
+ 
 }
 
 function ClosePopupEsc (evt) {
-  if(evt.key = 'Escape') {
-    closePopup(popup);
+  if(evt.key === 'Escape') {
+    closePopup();
   }
 }
 
