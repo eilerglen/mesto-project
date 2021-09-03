@@ -1,10 +1,12 @@
-/*Функция создания карточки*/
-export {createCard};
+/*Экспортируем готовые функции*/
+export {createCard, addCard};
 
+/*Импортируем данные для создания фугкциональности*/
 import {openPopup, closePopup, placeImageScale, placeImageScaleCaption, popupImage} from './modal.js'
 import {templatePlace} from '../index.js';
 import {popupCloseImage} from '../index.js';
 
+/*Функция создания карточки*/
 function createCard(data) {
     const placeItem = templatePlace.querySelector('.place').cloneNode(true);
     /*берем данные из словаря или формы для рендеринга контента карточки*/
@@ -14,14 +16,14 @@ function createCard(data) {
     placeImg.setAttribute('alt', data.name);
     placeTitle.textContent = data.name;
 
-   /*Вешаем обработчик на кнопку лайка. Здесь можно простой колбэк*/
+   /*Вешаем обработчик на кнопку лайка.*/
     const placeIconLike = placeItem.querySelector('.place__icon');
     placeIconLike.addEventListener('click', function(evt) {
       const ev = evt.target;
       ev.classList.toggle('place__icon_active');
     });
 
-   /*Вешаем обработчик на удаление карточки. Здесь можно простой колбэк или запилить отдельную функцию*/
+   /*Вешаем обработчик на удаление карточки */
     const placeDeleteButton = placeItem.querySelector('.place__delete-button');
 
     placeDeleteButton.addEventListener('click', function() {
@@ -44,3 +46,8 @@ function createCard(data) {
     return placeItem;
   }
 
+/*Функция добавления карточки в начало контейнера*/
+  function addCard (data, container) {
+    let place = createCard(data);
+    container.prepend(place);
+  }

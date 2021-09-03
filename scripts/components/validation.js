@@ -1,4 +1,4 @@
-
+//Функция-селектор отображения/скрытия браузерных сообщений об ошибке
 const checkInputValidity = (formElement, inputElement, DataForm) => {
   if(!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage, DataForm);
@@ -7,33 +7,32 @@ const checkInputValidity = (formElement, inputElement, DataForm) => {
     hideInputError(formElement, inputElement, DataForm);
   }
 }
-
+//Функция простой проверки на валидность хотя бы одного поля формы
 const hasInvalidInput = (inputs) => {
   return inputs.some((input) => {
       return !input.validity.valid
   });
 }
 
+//Функция переключения кнопки на активную
 const toggleButtonState = (inputList, buttonSubmit, DataForm) => {
-  // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList)) {
-    // сделай кнопку неактивной
     buttonSubmit.classList.add(DataForm.inActiveButtonClass);
     /*buttonSubmit.disabled = true;*/
   } else {
-        // иначе сделай кнопку активной
-        buttonSubmit.classList.remove(DataForm.inActiveButtonClass);
-        buttonSubmit.disabled = false;
+      buttonSubmit.classList.remove(DataForm.inActiveButtonClass);
+      buttonSubmit.disabled = false;
   }
 };
 
+//Функция показа браузерных сообщений об ошибке
 const showInputError = (formElement, inputElement, errorMessage, DataForm) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
   errorElement.textContent = errorMessage;
   inputElement.classList.add(DataForm.inputErrorClass);
   errorElement.classList.add(DataForm.errorClass);
 }
-
+//Функция сокрытия браузерных сообщений об ошибке
 const hideInputError = (formElement, inputElement, DataForm) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove(DataForm.inputErrorClass);
@@ -41,7 +40,7 @@ const hideInputError = (formElement, inputElement, DataForm) => {
   errorElement.textContent = '';
 }
 
-
+//Функция где по каждому полю input при вводе запускаются функции показа или сокрытия браузерных сообщений об ошибке и активности кнопки
 const setEventListeners = (formElement, DataForm) => {
   const inputList = Array.from(formElement.querySelectorAll(DataForm.inputSelector));
   const buttonSubmit = formElement.querySelector(DataForm.submitButtonSelector);
@@ -57,6 +56,7 @@ const setEventListeners = (formElement, DataForm) => {
 
 }
 
+//Главная функция - запуск валидации форм
 export function enableValidation(DataForm) {
   const forms = Array.from(document.querySelectorAll(DataForm.formSelector));
   forms.forEach(form => {
