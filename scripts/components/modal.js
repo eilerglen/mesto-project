@@ -1,4 +1,6 @@
-/*Экспортируем нужные данные */
+/*Окна модальные, попапы многострадальные */
+
+/*Экспортируем нужные данные, чтобы хоть один попап открылся */
 export const popupEdit = document.querySelector(".popup_edit");
 export const popupNewCard = document.querySelector('.popup_new-card');
 export const popupImage = document.querySelector('.popup_image');
@@ -18,11 +20,15 @@ function openPopup(popup) {
 //Функция закрытия popup
 function closePopup(popup) {
  popup.classList.remove("popup_opened");
- document.removeEventListener('keyup', (evt)=>{
-  if (evt.key === 'Escape') {
-      closePopup(popup);
-  }
-});
+ document.removeEventListener('keyup', popup);
+}
+
+/*Функция, в которой щелчок по карточке должен отобразить ее scaleImagePreview :))*/
+function OpenImagePopup (src, alt, name) {
+  placeImageScale.src = src;
+  placeImageScale.alt = alt;
+  placeImageScaleCaption.textContent = name;
+  openPopup(popupImage);
 }
 
 //Функция закрытия popup по щелчку вне тела popup
@@ -41,4 +47,4 @@ function setEventPopup() {
 }
 
 //Экспортируем готовые функции
-export {openPopup, closePopup, setEventPopup }
+export {openPopup, closePopup, OpenImagePopup, setEventPopup }
