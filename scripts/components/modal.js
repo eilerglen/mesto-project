@@ -8,14 +8,24 @@ export const placeImageScaleCaption = popupImage.querySelector('.popup__caption'
 //Функция открытия popup
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keyup', (evt)=>{
+    if (evt.key === 'Escape') {
+        closePopup(popup);
+    }
+  });
 }
 
 //Функция закрытия popup
 function closePopup(popup) {
  popup.classList.remove("popup_opened");
+ document.removeEventListener('keyup', (evt)=>{
+  if (evt.key === 'Escape') {
+      closePopup(popup);
+  }
+});
 }
 
-//Функция закрытия popup по события на клавише Escape и щелчку вне тела popup
+//Функция закрытия popup по щелчку вне тела popup
 
 function setEventPopup() {
   const popups = Array.from(document.querySelectorAll(".popup"));
@@ -25,11 +35,7 @@ function setEventPopup() {
           closePopup(popup);
       }
     });
-    document.addEventListener('keyup', (evt)=>{
-      if (evt.key === 'Escape') {
-          closePopup(popup);
-      }
-    });
+
   });
 
 }
