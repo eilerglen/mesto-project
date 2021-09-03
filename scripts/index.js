@@ -64,8 +64,6 @@ formEditProfileInfo.addEventListener('submit', editFormSubmit);
 
 /*Обозначаем контейнер, куда карточки могут добавляться*/
 const placesList = document.querySelector('.places__list');
-const templatePlace = document.querySelector('#template-place').content;
-
 
 /*Отрисовываем все карточки из массива*/
 initialCards.forEach((item) => {
@@ -88,4 +86,3 @@ enableValidation(FormsData);
 /*Вызов функции закрытия popups по клавише Escape и щелчку вне тела popup*/
 setEventPopup();
 
-export {templatePlace};
