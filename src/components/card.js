@@ -2,8 +2,8 @@
 export {createCard, addCard};
 
 /*Импортируем данные для создания функциональности*/
-import {OpenImagePopup, closePopup,  popupImage} from './modal.js'
-import {popupCloseImage} from '../index.js';
+import {openImagePopup, closePopup,  popupImage} from './modal.js'
+import {popupCloseImage} from '../pages/index.js';
 
 
 /*Функция создания карточки*/
@@ -27,7 +27,7 @@ function createCard(data) {
     
    /*Щелчок по карточке должен отобразить ее scaleImagePreview*/
     placeCardItem.querySelector('.place__img').addEventListener('click', () => {
-    OpenImagePopup(data.link, data.name, data.name)
+    openImagePopup(data.link, data.name, data.name)
   });
 
     //Закрытие popup картинки
@@ -52,6 +52,8 @@ function createCard(data) {
     const carditem = evt.target.closest('.place');
     carditem.remove()
   }
+
+//***** 
 
 
 /*Функция добавления карточки в начало контейнера*/

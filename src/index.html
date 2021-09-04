@@ -3,19 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href = "pages/index.css">
   <title> Mesto </title>
 </head>
 <body class = "page">
   <!--header-->
   <header class = "header page__content">
-    <img src="images/Vector.svg" alt="Лого страницы" class="header__logo">
+    <img src= "<%=require('./images/Vector.svg')%>" alt="Лого страницы" class="header__logo">
   </header>
   <!--Начинается основной контент страницы...-->
   <main class = "content page__content">
     <!--profile-->
     <section class = "profile">
-      <img src = "images/jacq.jpg" alt = "Изображение Кусто" class = "profile__avatar">
+      <img src = "<%=require('./images/jacq.jpg')%>"  alt = "Изображение Кусто" class = "profile__avatar"> 
       <div class = "profile__info">
         <h1 class = "profile__title">Жак-Ив Кустo</h1>
         <button type = "button" aria-label = "Редактировать профиль" class = "profile__edit-button" ></button>
@@ -36,7 +35,7 @@
     <p class = "footer__copyright">&copy;2021 Глен Зангеев</p>
   </footer>
 
-  <!--popup или всплывающее окно-->
+  <!--popup редактирования-->
   <div class = "popup popup_edit" id = "popup_edit">
     <div class = "popup__container">
       <button type= "button" aria-label = "Закрыть всплывающее окно" class = "popup__close"> </button>
@@ -54,7 +53,8 @@
       </form>
     </div>
   </div>
-
+  
+  <!--popup добавления новой карточки-->
   <div class = "popup popup_new-card" id = "popup_new-card">
     <div class = "popup__container">
       <button type= "button" aria-label = "Закрыть всплывающее окно" class = "popup__close"> </button>
@@ -72,7 +72,7 @@
       </form>
     </div>
   </div>
-
+  <!--popup изображения-->
   <div class = "popup popup_image" id = "popup_image" >
     <div class = "popup__container popup__container_image">
       <button type= "button" aria-label = "Закрыть всплывающее окно" class = "popup__close"> </button>
@@ -80,7 +80,7 @@
       <p class="popup__caption"></p>
     </div>
   </div>
-
+   <!--шаблон карточки-->
   <template id = "template-place">
     <li class = "place">
       <img src = "#" alt = "#" class = "place__img">
@@ -91,11 +91,5 @@
       </div>
     </li>
   </template>
-  <script type="module" src="./scripts/components/initial-cards.js"></script>
-  <script type="module" src="./scripts/components/card.js"></script>
-  <script type="module" src="./scripts/components/validation.js"></script>
-  <script type="module" src="./scripts/components/modal.js"></script>
-  <script type="module" src="./scripts/components/utils.js"></script>
-  <script type="module" src="./scripts/index.js"></script>
 </body>
 </html>

@@ -7,7 +7,14 @@ export const popupImage = document.querySelector('.popup_image');
 export const placeImageScale = popupImage.querySelector('.popup__image');
 export const placeImageScaleCaption = popupImage.querySelector('.popup__caption');
 
-//Функция открытия popup
+/*переменные для полей редактирования профиля */
+const inputEditProfileName = popupEdit.querySelector('#username');
+const inputEditProfileProf = popupEdit.querySelector('#profession');
+const profileName = document.querySelector('.profile__title');
+const profileProfession = document.querySelector('.profile__subtitle');
+
+
+//Функция открытия popup для всех случаев
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keyup', (evt)=>{
@@ -19,12 +26,29 @@ function openPopup(popup) {
 
 //Функция закрытия popup
 function closePopup(popup) {
- popup.classList.remove("popup_opened");
- document.removeEventListener('keyup', popup);
+  popup.classList.remove("popup_opened");
+  document.removeEventListener('keyup', popup);
+ }
+
+//Функция открытия popup для формы редактирования профиля
+
+//Инициализация значений полей и открытия popup редактирования
+function setValueFormEditor () {
+  inputEditProfileName.value = profileName.textContent;
+  inputEditProfileProf.value = profileProfession.textContent;
+  openPopup(popupEdit);
+
+};
+//Раз уж начали popup редактирования юзать, значить надо засабмитить, таков путь
+function submitValueForm (evt) {
+  evt.preventDefault();
+  profileName.textContent = inputEditProfileName.value;
+  profileProfession.textContent = inputEditProfileProf.value;
+  closePopup(popupEdit);
 }
 
 /*Функция, в которой щелчок по карточке должен отобразить ее scaleImagePreview :))*/
-function OpenImagePopup (src, alt, name) {
+function openImagePopup (src, alt, name) {
   placeImageScale.src = src;
   placeImageScale.alt = alt;
   placeImageScaleCaption.textContent = name;
@@ -47,4 +71,4 @@ function setEventPopup() {
 }
 
 //Экспортируем готовые функции
-export {openPopup, closePopup, OpenImagePopup, setEventPopup }
+export {openPopup, closePopup, openImagePopup, setEventPopup, setValueFormEditor, submitValueForm}
