@@ -3,9 +3,9 @@
 import './index.css';
 import {initialCards} from '../components/initial-cards.js';
 import {addCard} from '../components/card.js';
-import {enableValidation} from '../components/validation.js';
+import {enableValidation} from '../components/validate.js';
 import {FormsData} from '../components/utils.js';
-import {openPopup, closePopup, setEventPopup ,popupEdit, popupNewCard, popupImage, setValueFormEditor, submitValueForm} from '../components/modal.js';
+import {closePopup, closePopupEsc, openPopupEvent,popupEdit, popupNewCard, popupImage, setValueFormEditor, submitValueFormProfile} from '../components/modal.js';
 
 /*Инициализация кнопочек управления функционалом сайта*/
 // *****
@@ -43,13 +43,13 @@ popupCloseEdit.addEventListener('click', () => {
 });
 
 //Делаем сабмишн форме редактирования профиля
-formEditProfileInfo.addEventListener('submit', submitValueForm);
+formEditProfileInfo.addEventListener('submit', submitValueFormProfile);
 
 //***ARDS
 
 //Реализация открытия popup/form добавления карточки
 addButton.addEventListener('click', () => {
-  openPopup(popupNewCard);
+  openPopupEvent(popupNewCard);
 });
 
 //Реализация закрытия popup добавления карточки
@@ -82,6 +82,4 @@ formAddNewPlace.addEventListener('submit', addCardSubmit);
 /*Валидируем все формы на странице*/
 enableValidation(FormsData);
 
-/*Вызов функции закрытия popups по клавише Escape и щелчку вне тела popup*/
-setEventPopup();
 

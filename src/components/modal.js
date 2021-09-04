@@ -13,21 +13,27 @@ const inputEditProfileProf = popupEdit.querySelector('#profession');
 const profileName = document.querySelector('.profile__title');
 const profileProfession = document.querySelector('.profile__subtitle');
 
+//Функция открытия popup и одевания слушателей по ESC и клику по области вне тела
 
-//Функция открытия popup для всех случаев
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
+function openPopupEvent(popup) {
+  popup.classList.add("popup_opened")
   document.addEventListener('keyup', (evt)=>{
-    if (evt.key === 'Escape') {
+    if (evt.key === "Escape") {
         closePopup(popup);
+    }
+  });
+  popup.addEventListener('click', (evt)=>{
+    if (evt.target.classList.contains('popup')) {
+      closePopup(popup);
     }
   });
 }
 
-//Функция закрытия popup
+//Функция закрытия popup  и снятия слушателей 
 function closePopup(popup) {
-  popup.classList.remove("popup_opened");
+  popup.classList.remove("popup_opened")
   document.removeEventListener('keyup', popup);
+  popup.removeEventListener('click', popup);
  }
 
 //Функция открытия popup для формы редактирования профиля
@@ -36,39 +42,24 @@ function closePopup(popup) {
 function setValueFormEditor () {
   inputEditProfileName.value = profileName.textContent;
   inputEditProfileProf.value = profileProfession.textContent;
-  openPopup(popupEdit);
+  openPopupEvent(popupEdit);
 
 };
 //Раз уж начали popup редактирования юзать, значить надо засабмитить, таков путь
-function submitValueForm (evt) {
+function submitValueFormProfile (evt) {
   evt.preventDefault();
   profileName.textContent = inputEditProfileName.value;
   profileProfession.textContent = inputEditProfileProf.value;
   closePopup(popupEdit);
 }
 
-/*Функция, в которой щелчок по карточке должен отобразить ее scaleImagePreview :))*/
+/*Функция, в которой щелчок по карточке должен отобразить ее scaleImagePreview*/
 function openImagePopup (src, alt, name) {
   placeImageScale.src = src;
   placeImageScale.alt = alt;
   placeImageScaleCaption.textContent = name;
-  openPopup(popupImage);
-}
-
-//Функция закрытия popup по щелчку вне тела popup
-
-function setEventPopup() {
-  const popups = Array.from(document.querySelectorAll(".popup"));
-  popups.forEach(popup => {
-    popup.addEventListener('click', (evt)=>{
-      if (evt.target.classList.contains('popup')) {
-          closePopup(popup);
-      }
-    });
-
-  });
-
+  openPopupEvent(popupImage);
 }
 
 //Экспортируем готовые функции
-export {openPopup, closePopup, openImagePopup, setEventPopup, setValueFormEditor, submitValueForm}
+export {closePopup, openImagePopup, openPopupEvent, setValueFormEditor, submitValueFormProfile}
