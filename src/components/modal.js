@@ -59,6 +59,7 @@ function openImagePopup (src, alt, name) {
   placeImageScale.alt = alt;
   placeImageScaleCaption.textContent = name;
   openPopupEvent(popupImage);
+  console.log(popupImage);
 }
 
 //Экспортируем готовые функции
