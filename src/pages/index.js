@@ -25,7 +25,7 @@ export const popupCloseImage = popupImage.querySelector('.popup__close');
 /*Задаем форму создания карточки*/
 const formAddNewPlace = popupNewCard.querySelector('.popup__form');
 
-//***** 
+//*****
 
 /*Задаем инпуты для названия и ссылки для карточки*/
 const  inputAddTitle = popupNewCard.querySelector('#place-name');
@@ -70,7 +70,7 @@ initialCards.forEach((item) => {
 
 function addCardSubmit (evt) {
   evt.preventDefault();
-  addCard(data = {name: inputAddTitle.value, link: inputAddLink.value}, placesList)
+  addCard({name: inputAddTitle.value, link: inputAddLink.value}, placesList)
   closePopup(popupNewCard);
 
 }
