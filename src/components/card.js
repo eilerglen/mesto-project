@@ -2,7 +2,8 @@
 export {createCard, addCard};
 
 /*Импортируем данные для создания функциональности*/
-import {openImagePopup, closePopup,  popupImage} from './modal.js'
+import {openImagePopup, closePopup} from './modal.js'
+import {popupImage} from '../utils/constants.js'
 import {popupCloseImage} from '../pages/index.js';
 
 
@@ -21,10 +22,10 @@ function createCard(data) {
 
    /*Карточка нуждается в оценке, поэтому вешаем обработчик на кнопку лайка*/
     placeCardItem.querySelector('.place__icon').addEventListener('click', cardLikeToggle)
-    
+
    /*Иногда карточку приходится удалять*/
     placeCardItem.querySelector('.place__delete-button').addEventListener('click', removeCardItem);
-    
+
    /*Щелчок по карточке должен отобразить ее scaleImagePreview*/
     placeCardItem.querySelector('.place__img').addEventListener('click', () => {
     openImagePopup(data.link, data.name, data.name)
@@ -46,19 +47,19 @@ function createCard(data) {
     const e = evt.target;
     e.classList.toggle('place__icon_active');
   }
-  
+
   /*Функция удалить карточку*/
   function removeCardItem (evt) {
     const carditem = evt.target.closest('.place');
     carditem.remove()
   }
 
-//***** 
+//*****
 
 
 /*Функция добавления карточки в начало контейнера*/
   function addCard (data, container) {
-    let place = createCard(data);
+    const place = createCard(data);
     container.prepend(place);
   }
 

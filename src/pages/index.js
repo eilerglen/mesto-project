@@ -1,11 +1,11 @@
 /*Импорты наше все*/
 //*****
 import './index.css';
-import {initialCards} from '../components/initial-cards.js';
+import {initialCards, formsData} from '../utils/constants.js';
 import {addCard} from '../components/card.js';
 import {enableValidation} from '../components/validate.js';
-import {FormsData} from '../components/utils.js';
-import {closePopup, closePopupEsc, openPopupEvent,popupEdit, popupNewCard, popupImage, setValueFormEditor, submitValueFormProfile} from '../components/modal.js';
+import {closePopup, openPopupEvent, setValueFormEditor, submitValueFormProfile} from '../components/modal.js';
+import {popupEdit, popupNewCard, popupImage} from'../utils/constants.js';
 
 /*Инициализация кнопочек управления функционалом сайта*/
 // *****
@@ -80,6 +80,6 @@ formAddNewPlace.addEventListener('submit', addCardSubmit);
 /***** Все нужно валидировать, иначе нельзя
 
 /*Валидируем все формы на странице*/
-enableValidation(FormsData);
+enableValidation(formsData);
 
 

@@ -12,5 +12,5 @@
   z-index: 100;
   visibility: hidden;
   pointer-events: none;
-  transition: visibility 0s, opacity .7s linear;
+  transition: visibility .5s, opacity .7s linear;
 }

@@ -1,43 +1,40 @@
 /*Окна модальные, попапы многострадальные */
-
-/*Экспортируем нужные данные, чтобы хоть один попап открылся */
-export const popupEdit = document.querySelector(".popup_edit");
-export const popupNewCard = document.querySelector('.popup_new-card');
-export const popupImage = document.querySelector('.popup_image');
-export const placeImageScale = popupImage.querySelector('.popup__image');
-export const placeImageScaleCaption = popupImage.querySelector('.popup__caption');
-
-/*переменные для полей редактирования профиля */
-const inputEditProfileName = popupEdit.querySelector('#username');
-const inputEditProfileProf = popupEdit.querySelector('#profession');
-const profileName = document.querySelector('.profile__title');
-const profileProfession = document.querySelector('.profile__subtitle');
+import {popupList, popupEdit, popupImage, placeImageScale,
+  placeImageScaleCaption, inputEditProfileName, inputEditProfileProf,
+  profileName, profileProfession} from '../utils/constants.js';
 
 //Функция открытия popup и одевания слушателей по ESC и клику по области вне тела
 
 function openPopupEvent(popup) {
-  popup.classList.add("popup_opened")
-  document.addEventListener('keyup', (evt)=>{
-    if (evt.key === "Escape") {
-        closePopup(popup);
-    }
-  });
-  popup.addEventListener('click', (evt)=>{
-    if (evt.target.classList.contains('popup')) {
-      closePopup(popup);
-    }
-  });
+  popup.classList.add("popup_opened");
+  document.addEventListener('keyup', closePopupEsc);
+  popup.addEventListener('click', closePopupOverlay);
 }
 
-//Функция закрытия popup  и снятия слушателей 
+//Функция закрытия popup  и снятия слушателей
 function closePopup(popup) {
   popup.classList.remove("popup_opened")
-  document.removeEventListener('keyup', popup);
-  popup.removeEventListener('click', popup);
+  document.removeEventListener('keyup', closePopupEsc);
+  popup.removeEventListener('click', closePopupOverlay);
  }
 
-//Функция открытия popup для формы редактирования профиля
+//Функция закрытия popup по клавише ESC
+const closePopupEsc = (evt) => {
+  if(evt.key === "Escape") {
+    popupList.forEach((elem) => {
+      closePopup(elem);
+    });
+  }
+}
 
+//Функция открытия popup по оверлею
+const closePopupOverlay = (evt) => {
+  if(evt.target.classList.contains('popup')) {
+    popupList.forEach((elem) => {
+      closePopup(elem);
+    });
+  }
+}
 //Инициализация значений полей и открытия popup редактирования
 function setValueFormEditor () {
   inputEditProfileName.value = profileName.textContent;
@@ -59,7 +56,6 @@ function openImagePopup (src, alt, name) {
   placeImageScale.alt = alt;
   placeImageScaleCaption.textContent = name;
   openPopupEvent(popupImage);
-  console.log(popupImage);
 }
 
 //Экспортируем готовые функции
