@@ -14,7 +14,7 @@ const hasInvalidInput = (inputs) => {
     return !input.validity.valid
   });
 }
-const toggleButtonState = (inputList, buttonSubmit, DataForm) => {  
+const toggleButtonState = (inputList, buttonSubmit, DataForm) => {
   if (hasInvalidInput(inputList)) {
     buttonSubmit.classList.add(DataForm.inActiveButtonClass);
     buttonSubmit.disabled = true;
@@ -22,15 +22,15 @@ const toggleButtonState = (inputList, buttonSubmit, DataForm) => {
       buttonSubmit.classList.remove(DataForm.inActiveButtonClass);
       buttonSubmit.disabled = false;
   }
-} 
-//Функция показа браузерных сообщений об ошибке и только 
+}
+//Функция показа браузерных сообщений об ошибке и только
 const showInputError = (formElement, inputElement, errorMessage, DataForm) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`)
   errorElement.textContent = errorMessage;
   inputElement.classList.add(DataForm.inputErrorClass);
   errorElement.classList.add(DataForm.errorClass);
 }
-//Функция сокрытия браузерных сообщений об ошибке и только 
+//Функция сокрытия браузерных сообщений об ошибке и только
 const hideInputError = (formElement, inputElement, DataForm) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove(DataForm.inputErrorClass);

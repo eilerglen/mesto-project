@@ -4,8 +4,8 @@ export {createCard, addCard};
 /*Импортируем данные для создания функциональности*/
 import {openImagePopup, closePopup} from './modal.js'
 import {popupImage} from '../utils/constants.js'
-import {popupCloseImage} from '../pages/index.js';
-
+import {popupCloseImage} from '../utils/constants.js'
+import {cardLikeToggle} from './utils.js';
 
 /*Функция создания карточки*/
 function createCard(data) {
@@ -42,12 +42,6 @@ function createCard(data) {
 
   //Разделяй и властвуй. Функции формирующие функцию создания карточки
 
-  /*Функция поставить/убрать лайк*/
-  function cardLikeToggle (evt) {
-    const e = evt.target;
-    e.classList.toggle('place__icon_active');
-  }
-
   /*Функция удалить карточку*/
   function removeCardItem (evt) {
     const carditem = evt.target.closest('.place');
@@ -55,7 +49,6 @@ function createCard(data) {
   }
 
 //*****
-
 
 /*Функция добавления карточки в начало контейнера*/
   function addCard (data, container) {

@@ -1,35 +1,12 @@
 /*Импорты наше все*/
 //*****
 import './index.css';
-import {initialCards, formsData} from '../utils/constants.js';
+import {initialCards, formsData, editButton, addButton, popupCloseEdit, popupCloseNewCard,
+  inputAddTitle, inputAddLink, formEditProfileInfo, formAddNewPlace} from '../utils/constants.js';
 import {addCard} from '../components/card.js';
 import {enableValidation} from '../components/validate.js';
 import {closePopup, openPopupEvent, setValueFormEditor, submitValueFormProfile} from '../components/modal.js';
-import {popupEdit, popupNewCard, popupImage} from'../utils/constants.js';
-
-/*Инициализация кнопочек управления функционалом сайта*/
-// *****
-
-/*Кнопки управления popup/формой редактирования профиля */
-const editButton = document.querySelector('.profile__edit-button');
-const popupCloseEdit = popupEdit.querySelector('.popup__close');
-//Нашли форму редактирования профиля
-const formEditProfileInfo = popupEdit.querySelector('.popup__form');
-
-/*****/
-
-/*Кнопки управления popup/формой добавления картчоки */
-const addButton = document.querySelector('.profile__add-button');
-const popupCloseNewCard = popupNewCard.querySelector('.popup__close');
-export const popupCloseImage = popupImage.querySelector('.popup__close');
-/*Задаем форму создания карточки*/
-const formAddNewPlace = popupNewCard.querySelector('.popup__form');
-
-//*****
-
-/*Задаем инпуты для названия и ссылки для карточки*/
-const  inputAddTitle = popupNewCard.querySelector('#place-name');
-const  inputAddLink = popupNewCard.querySelector('#place-link');
+import {popupEdit, popupNewCard} from'../utils/constants.js';
 
 //***PROFILE
 
@@ -38,8 +15,9 @@ editButton.addEventListener('click', setValueFormEditor)
 
 //Реализация простого закрытия popup редактирования профиля
 popupCloseEdit.addEventListener('click', () => {
+  closePopup(popupEdit);
   formEditProfileInfo.reset();
-  closePopup(popupEdit)
+
 });
 
 //Делаем сабмишн форме редактирования профиля

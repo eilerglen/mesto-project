@@ -2,7 +2,6 @@
 import {popupList, popupEdit, popupImage, placeImageScale,
   placeImageScaleCaption, inputEditProfileName, inputEditProfileProf,
   profileName, profileProfession} from '../utils/constants.js';
-
 //Функция открытия popup и одевания слушателей по ESC и клику по области вне тела
 
 function openPopupEvent(popup) {
@@ -27,14 +26,18 @@ const closePopupEsc = (evt) => {
   }
 }
 
+
 //Функция открытия popup по оверлею
 const closePopupOverlay = (evt) => {
   if(evt.target.classList.contains('popup')) {
-    popupList.forEach((elem) => {
-      closePopup(elem);
+    popupList.forEach((popup) => {
+      closePopup(popup);
     });
   }
 }
+
+//Функция закрытия форм без сохранения
+
 //Инициализация значений полей и открытия popup редактирования
 function setValueFormEditor () {
   inputEditProfileName.value = profileName.textContent;
@@ -48,6 +51,7 @@ function submitValueFormProfile (evt) {
   profileName.textContent = inputEditProfileName.value;
   profileProfession.textContent = inputEditProfileProf.value;
   closePopup(popupEdit);
+
 }
 
 /*Функция, в которой щелчок по карточке должен отобразить ее scaleImagePreview*/
