@@ -2,7 +2,7 @@
 import {popupList, popupEdit, popupImage, placeImageScale,
   placeImageScaleCaption, inputEditProfileName, inputEditProfileProf,
   profileName, profileProfession} from '../utils/constants.js';
-import {resetInputErr, resetSpanErr} from './validate.js';
+
 //Функция открытия popup и одевания слушателей по ESC и клику по области вне тела
 
 function openPopupEvent(popup) {
