@@ -7,7 +7,7 @@ import {addCard} from '../components/card.js';
 import {enableValidation,resetValidation} from '../components/validate.js';
 import {closePopup, openPopupEvent, setValueFormEditor, submitValueFormProfile} from '../components/modal.js';
 import {popupEdit, popupNewCard} from'../utils/constants.js';
-
+import {getProfileInfo} from '../components/api.js';
 //***PROFILE
 
 //Реализация открытия popup/form редактирования профиля
@@ -60,5 +60,6 @@ formAddNewPlace.addEventListener('submit', addCardSubmit);
 
 /*Валидируем все формы на странице*/
 enableValidation(formsData);
+//getProfileInfo();
 
-
+getProfileInfo();
