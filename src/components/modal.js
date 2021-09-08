@@ -2,6 +2,7 @@
 import {popupList, popupEdit, popupImage, placeImageScale,
   placeImageScaleCaption, inputEditProfileName, inputEditProfileProf,
   profileName, profileProfession} from '../utils/constants.js';
+import {resetInputErr, resetSpanErr} from './validate.js';
 //Функция открытия popup и одевания слушателей по ESC и клику по области вне тела
 
 function openPopupEvent(popup) {
@@ -15,6 +16,7 @@ function closePopup(popup) {
   popup.classList.remove("popup_opened")
   document.removeEventListener('keyup', closePopupEsc);
   popup.removeEventListener('click', closePopupOverlay);
+
  }
 
 //Функция закрытия popup по клавише ESC

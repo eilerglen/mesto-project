@@ -4,7 +4,7 @@ import './index.css';
 import {initialCards, formsData, editButton, addButton, popupCloseEdit, popupCloseNewCard,
   inputAddTitle, inputAddLink, formEditProfileInfo, formAddNewPlace} from '../utils/constants.js';
 import {addCard} from '../components/card.js';
-import {enableValidation} from '../components/validate.js';
+import {enableValidation,resetValidation} from '../components/validate.js';
 import {closePopup, openPopupEvent, setValueFormEditor, submitValueFormProfile} from '../components/modal.js';
 import {popupEdit, popupNewCard} from'../utils/constants.js';
 
@@ -17,23 +17,24 @@ editButton.addEventListener('click', setValueFormEditor)
 popupCloseEdit.addEventListener('click', () => {
   closePopup(popupEdit);
   formEditProfileInfo.reset();
-
+  resetValidation(popupEdit);
 });
 
 //Делаем сабмишн форме редактирования профиля
 formEditProfileInfo.addEventListener('submit', submitValueFormProfile);
 
-//***ARDS
+//***CARDS
 
 //Реализация открытия popup/form добавления карточки
 addButton.addEventListener('click', () => {
   openPopupEvent(popupNewCard);
+  resetValidation(popupNewCard);
 });
 
 //Реализация закрытия popup добавления карточки
 popupCloseNewCard.addEventListener('click', () => {
-  formAddNewPlace.reset()
-  closePopup(popupNewCard)
+  formAddNewPlace.reset();
+  closePopup(popupNewCard);
 });
 
 /*Обозначаем контейнер, куда карточки могут добавляться*/
@@ -41,7 +42,7 @@ const placesList = document.querySelector('.places__list');
 
 /*Отрисовываем все карточки из массива на странице в обозначенный контейнер*/
 initialCards.forEach((item) => {
-  addCard(item, placesList)
+  addCard(item, placesList);
 });
 
 /*Функция создания карточки по клику*/
