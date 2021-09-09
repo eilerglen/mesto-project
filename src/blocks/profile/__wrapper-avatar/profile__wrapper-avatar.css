@@ -1,0 +1,19 @@
+.profile__wrapper-avatar {
+  position: relative;
+  margin-right: 30px;
+}
+
+@media screen and (max-width: 760px) {
+  .profile__wrapper-avatar  {
+    margin-right: 0;
+    margin-bottom: 26px;
+  }
+}
+
+.profile__wrapper-avatar:hover .profile__avatar {
+  opacity: .5;
+}
+
+.profile__wrapper-avatar:hover .profile__overlay-avatar {
+  opacity: 1;
+}

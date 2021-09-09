@@ -44,7 +44,7 @@ function updateProfileAvatar(url) {
   })
 }
 
-function getInitialCards() {
+export function getInitialCards() {
   return fetch(`${config.baseUrl}/cards/`,{
     method: "GET",
     headers: config.headers,

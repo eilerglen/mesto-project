@@ -1,17 +1,21 @@
 /*Импорты наше все*/
 //*****
 import './index.css';
-import {initialCards, formsData, editButton, addButton, popupCloseEdit, popupCloseNewCard,
-  inputAddTitle, inputAddLink, formEditProfileInfo, formAddNewPlace} from '../utils/constants.js';
+import {initialCards, formsData, editButton, editButtonAvatar, addButton, popupCloseEdit,
+  popupCloseNewCard, popupCloseEditAvatar, inputAddTitle, inputAddLink, formEditProfileInfo,
+  formAddNewPlace, formEditProfileAvatar} from '../utils/constants.js';
 import {addCard} from '../components/card.js';
 import {enableValidation,resetValidation} from '../components/validate.js';
-import {closePopup, openPopupEvent, setValueFormEditor, submitValueFormProfile} from '../components/modal.js';
-import {popupEdit, popupNewCard} from'../utils/constants.js';
-import {getProfileInfo} from '../components/api.js';
+import {closePopup, openPopupEvent, setValueFormEditor, submitValueFormProfile,
+  submitValueFormProfileAvatar} from '../components/modal.js';
+import {popupEdit, popupNewCard, popupEditAvatar} from'../utils/constants.js';
+import {getProfileInfo, getInitialCards} from '../components/api.js';
 //***PROFILE
 
 //Реализация открытия popup/form редактирования профиля
 editButton.addEventListener('click', setValueFormEditor)
+
+
 
 //Реализация простого закрытия popup редактирования профиля
 popupCloseEdit.addEventListener('click', () => {
@@ -30,6 +34,17 @@ addButton.addEventListener('click', () => {
   openPopupEvent(popupNewCard);
   resetValidation(popupNewCard);
 });
+
+//Реализация открытия popup смены аватарки
+editButtonAvatar.addEventListener('click', () =>{
+  openPopupEvent(popupEditAvatar);
+  resetValidation(popupEditAvatar);
+})
+
+popupCloseEditAvatar.addEventListener('click', ()=>{
+  formEditProfileAvatar.reset();
+  closePopup(popupEditAvatar);
+})
 
 //Реализация закрытия popup добавления карточки
 popupCloseNewCard.addEventListener('click', () => {
@@ -51,15 +66,19 @@ function addCardSubmit (evt) {
   evt.preventDefault();
   addCard({name: inputAddTitle.value, link: inputAddLink.value}, placesList)
   closePopup(popupNewCard);
-
 }
+
 /*Создаем новую карточку по событию submit*/
 formAddNewPlace.addEventListener('submit', addCardSubmit);
 
-/***** Все нужно валидировать, иначе нельзя
+/*Обновляем аву по событию submit*/
+formEditProfileAvatar.addEventListener('submit', submitValueFormProfileAvatar)
 
+/***** Все нужно валидировать, иначе нельзя
 /*Валидируем все формы на странице*/
 enableValidation(formsData);
 //getProfileInfo();
 
 getProfileInfo();
+
+getInitialCards()

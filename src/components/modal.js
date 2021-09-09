@@ -1,7 +1,8 @@
 /*Окна модальные, попапы многострадальные */
 import {popupList, popupEdit, popupImage, placeImageScale,
   placeImageScaleCaption, inputEditProfileName, inputEditProfileProf,
-  profileName, profileProfession} from '../utils/constants.js';
+  inputEditProfileAvatar, profileName, profileProfession, profileAvatar,
+  popupEditAvatar} from '../utils/constants.js';
 
 //Функция открытия popup и одевания слушателей по ESC и клику по области вне тела
 
@@ -47,13 +48,18 @@ function setValueFormEditor () {
   openPopupEvent(popupEdit);
 
 };
+
 //Раз уж начали popup редактирования юзать, значить надо засабмитить, таков путь
 function submitValueFormProfile (evt) {
   evt.preventDefault();
   profileName.textContent = inputEditProfileName.value;
   profileProfession.textContent = inputEditProfileProf.value;
   closePopup(popupEdit);
-
+}
+function submitValueFormProfileAvatar(evt) {
+  evt.preventDefault();
+  profileAvatar.src =  inputEditProfileAvatar.value;
+  closePopup(popupEditAvatar);
 }
 
 /*Функция, в которой щелчок по карточке должен отобразить ее scaleImagePreview*/
@@ -65,4 +71,5 @@ function openImagePopup (src, alt, name) {
 }
 
 //Экспортируем готовые функции
-export {closePopup, openImagePopup, openPopupEvent, setValueFormEditor, submitValueFormProfile}
+export {closePopup, openImagePopup, openPopupEvent, setValueFormEditor,
+  submitValueFormProfile, submitValueFormProfileAvatar}
