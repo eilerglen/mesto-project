@@ -1,9 +1,9 @@
 /*Окна модальные, попапы многострадальные */
 import {popupList, popupEdit, popupImage, placeImageScale,
   placeImageScaleCaption, inputEditProfileName, inputEditProfileProf,
-  inputEditProfileAvatar, profileName, profileProfession, profileAvatar,
+  inputEditProfileAvatar, profileName, profileProfession,
   popupEditAvatar} from '../utils/constants.js';
-
+import {updateProfileAvatar, updateProfileInfo} from '../components/api.js';
 //Функция открытия popup и одевания слушателей по ESC и клику по области вне тела
 
 function openPopupEvent(popup) {
@@ -54,11 +54,13 @@ function submitValueFormProfile (evt) {
   evt.preventDefault();
   profileName.textContent = inputEditProfileName.value;
   profileProfession.textContent = inputEditProfileProf.value;
+  updateProfileInfo(inputEditProfileName.value, inputEditProfileProf.value)
   closePopup(popupEdit);
 }
 function submitValueFormProfileAvatar(evt) {
   evt.preventDefault();
-  profileAvatar.src =  inputEditProfileAvatar.value;
+  let newAvatar = inputEditProfileAvatar.value;
+  updateProfileAvatar(newAvatar);
   closePopup(popupEditAvatar);
 }
 

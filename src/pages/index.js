@@ -10,6 +10,8 @@ import {closePopup, openPopupEvent, setValueFormEditor, submitValueFormProfile,
   submitValueFormProfileAvatar} from '../components/modal.js';
 import {popupEdit, popupNewCard, popupEditAvatar} from'../utils/constants.js';
 import {getProfileInfo, getInitialCards} from '../components/api.js';
+import {profileInfoUpdate} from '../components/profile.js';
+
 //***PROFILE
 
 //Реализация открытия popup/form редактирования профиля
@@ -80,5 +82,5 @@ enableValidation(formsData);
 //getProfileInfo();
 
 getProfileInfo();
-
-getInitialCards()
+getInitialCards();
+profileInfoUpdate();

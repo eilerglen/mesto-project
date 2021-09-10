@@ -11,35 +11,34 @@ export function getProfileInfo(){
     method: "GET",
     headers: config.headers,
   })
-    .then((res) => res.json())
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
     .catch((err) =>{
       console.log(err);
     })
 }
 
-function updateProfileInfo(name, profession) {
+export function updateProfileInfo(name, about) {
   return fetch(`${config.baseUrl}/users/me`, {
     method: "PATCH",
     headers: config.headers,
     body: JSON.stringify({
       name: name,
-      profession: profession,
-  })
-  .catch((err) =>{
-      console.log(err);
+      about: about,
     })
   })
 }
 
-function updateProfileAvatar(url) {
-  return fetch(`${config.baseUrl}/users/me`, {
+export function updateProfileAvatar(url) {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
     method: "PATCH",
     headers: config.headers,
     body: JSON.stringify({
-     avatar: url,
-  })
-  .catch((err) =>{
-      console.log(err);
+      avatar: url,
     })
   })
 }
@@ -49,8 +48,12 @@ export function getInitialCards() {
     method: "GET",
     headers: config.headers,
   })
-    .then((res) => res.json())
-    .catch((err) =>{
-      console.log(err);
+    .then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
     })
+    .catch((err) => {
+      console.log(err);
+    });
 }
