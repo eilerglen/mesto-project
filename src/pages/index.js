@@ -4,12 +4,12 @@ import './index.css';
 import {initialCards, formsData, editButton, editButtonAvatar, addButton, popupCloseEdit,
   popupCloseNewCard, popupCloseEditAvatar, inputAddTitle, inputAddLink, formEditProfileInfo,
   formAddNewPlace, formEditProfileAvatar} from '../utils/constants.js';
-import {getInitialsCards} from '../components/card.js';
+import {getInitialsCards, extractData,addCard} from '../components/card.js';
 import {enableValidation,resetValidation} from '../components/validate.js';
 import {closePopup, openPopupEvent, setValueFormEditor, submitValueFormProfile,
   submitValueFormProfileAvatar} from '../components/modal.js';
 import {popupEdit, popupNewCard, popupEditAvatar} from'../utils/constants.js';
-import {getProfileInfo, getCardsData} from '../components/api.js';
+import {getProfileInfo, getCardsDataToServer} from '../components/api.js';
 import {profileInfoUpdate} from '../components/profile.js';
 
 //***PROFILE
@@ -58,8 +58,14 @@ popupCloseNewCard.addEventListener('click', () => {
 export const placesList = document.querySelector('.places__list');
 
 /*Отрисовываем все карточки из массива на странице в обозначенный контейнер*/
-
-getInitialsCards(placesList);
+getCardsDataToServer()
+  .then((arrayCards) => {
+    console.log(arrayCards)
+    arrayCards.forEach((card) =>{
+      console.log(card);
+      addCard (card, placesList);
+    })
+  });
 
 /*Функция создания карточки по клику*/
 
@@ -81,5 +87,5 @@ enableValidation(formsData);
 //getProfileInfo();
 
 getProfileInfo();
-getCardsData();
 profileInfoUpdate();
+

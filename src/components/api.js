@@ -43,7 +43,7 @@ export function updateProfileAvatar(url) {
   })
 }
 
-export function getCardsData() {
+export const getCardsDataToServer = () => {
   return fetch(`${config.baseUrl}/cards/`,{
     method: "GET",
     headers: config.headers,
@@ -56,4 +56,33 @@ export function getCardsData() {
     .catch((err) => {
       console.log(err);
     });
+}
+
+export function addNewCard(name, link) {
+  return fetch(`${config.baseUrl}/cards/`,{
+    method: 'POST', 
+    headers: config.headers,
+    body: JSON.stringify({
+      name: name,
+      link: link
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }) 
+}
+
+export function deleteCard(cardId) {
+  return fetch(`${config.baseUrl}/cards/${cardId}`,{
+    method: 'DELETE', 
+    headers: config.headers,
+  }).then((res) =>{
+    if(res.ok){
+      return res.json();
+    }
+  })
 }
