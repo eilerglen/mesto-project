@@ -4,12 +4,12 @@ import './index.css';
 import {initialCards, formsData, editButton, editButtonAvatar, addButton, popupCloseEdit,
   popupCloseNewCard, popupCloseEditAvatar, inputAddTitle, inputAddLink, formEditProfileInfo,
   formAddNewPlace, formEditProfileAvatar} from '../utils/constants.js';
-import {addCard} from '../components/card.js';
+import {getInitialsCards} from '../components/card.js';
 import {enableValidation,resetValidation} from '../components/validate.js';
 import {closePopup, openPopupEvent, setValueFormEditor, submitValueFormProfile,
   submitValueFormProfileAvatar} from '../components/modal.js';
 import {popupEdit, popupNewCard, popupEditAvatar} from'../utils/constants.js';
-import {getProfileInfo, getInitialCards} from '../components/api.js';
+import {getProfileInfo, getCardsData} from '../components/api.js';
 import {profileInfoUpdate} from '../components/profile.js';
 
 //***PROFILE
@@ -55,12 +55,11 @@ popupCloseNewCard.addEventListener('click', () => {
 });
 
 /*Обозначаем контейнер, куда карточки могут добавляться*/
-const placesList = document.querySelector('.places__list');
+export const placesList = document.querySelector('.places__list');
 
 /*Отрисовываем все карточки из массива на странице в обозначенный контейнер*/
-initialCards.forEach((item) => {
-  addCard(item, placesList);
-});
+
+getInitialsCards(placesList);
 
 /*Функция создания карточки по клику*/
 
@@ -82,5 +81,5 @@ enableValidation(formsData);
 //getProfileInfo();
 
 getProfileInfo();
-getInitialCards();
+getCardsData();
 profileInfoUpdate();
