@@ -23,6 +23,7 @@ function createCard(data) {
     placeCardItem.querySelector('.place__img').alt = data.name;
     placeCardItem.querySelector('.place__title').textContent = data.name;
     placeCardItem.setAttribute("id", data.cardId)
+    placeCardItem.querySelector('.place__count-like').textContent = data.likes.length;
 
    /*Карточка нуждается в оценке, поэтому вешаем обработчик на кнопку лайка*/
     placeCardItem.querySelector('.place__icon').addEventListener('click', cardLikeToggle)
