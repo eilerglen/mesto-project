@@ -64,6 +64,7 @@ function submitValueFormProfileAvatar(evt) {
   closePopup(popupEditAvatar);
 }
 
+
 /*Функция, в которой щелчок по карточке должен отобразить ее scaleImagePreview*/
 function openImagePopup (src, alt, name) {
   placeImageScale.src = src;

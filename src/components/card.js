@@ -1,16 +1,16 @@
 /*Экспортируем готовые функции*/
-export {createCard, addCard};
+export {createCard, addCard, addCardSubmit, renderCards};
 
 /*Импортируем данные для создания функциональности*/
 import {openImagePopup, closePopup} from './modal.js'
-import {popupImage} from '../utils/constants.js'
+import {popupImage, inputAddTitle, inputAddLink, popupNewCard} from '../utils/constants.js'
 import {popupCloseImage} from '../utils/constants.js'
 import {cardLikeToggle} from './utils.js';
-import {getCardsData, getProfileInfo} from './api.js'
+import {addNewCard} from './api.js'
 import {placesList} from '../pages/index.js'
 /*Функция создания карточки*/
 
-function createCard(data) {
+function createCard(data, userId) {
 
     /*Обозначили темплейт тела карточки*/
     const templateCard = document.querySelector('#template-place').content;
@@ -22,18 +22,18 @@ function createCard(data) {
     placeCardItem.querySelector('.place__img').src = data.link;
     placeCardItem.querySelector('.place__img').alt = data.name;
     placeCardItem.querySelector('.place__title').textContent = data.name;
-    placeCardItem.setAttribute("id", data.cardId)
+    placeCardItem.setAttribute("id", data._id);
     placeCardItem.querySelector('.place__count-like').textContent = data.likes.length;
-
+    if(!(data.owner._id === userId))  {
+      placeCardItem.querySelector('.place__delete-button').style.display = "none";
+    }
+    else {
+      placeCardItem.querySelector('.place__delete-button').addEventListener('click', removeCardItem);
+    }
+   
    /*Карточка нуждается в оценке, поэтому вешаем обработчик на кнопку лайка*/
     placeCardItem.querySelector('.place__icon').addEventListener('click', cardLikeToggle)
-
-    placeCardItem.querySelector('.place__delete-button').addEventListener('click', removeCardItem);
     
-  
-    //placeCardItem.querySelector('.place__delete-button').classList.add(".place__delete-button_active")
-   
-
    /*Щелчок по карточке должен отобразить ее scaleImagePreview*/
     placeCardItem.querySelector('.place__img').addEventListener('click', () => {
     openImagePopup(data.link, data.name, data.name)
@@ -44,29 +44,53 @@ function createCard(data) {
     closePopup(popupImage)
     });
 
-
     return placeCardItem;
   }
 
 /*Функция добавления карточки в начало контейнера*/
-  function addCard (data, container) {
-    const place = createCard(data);
+  function addCard (data, container, userId) {
+    const place = createCard(data, userId);
     container.prepend(place);
   }
+/*Функция-обработчик формы создания новой карточки*/
+  function addCardSubmit (evt) {
+    evt.preventDefault();
+    const cardData = {
+      name: inputAddTitle.value,
+      link: inputAddLink.value,
+    }
 
+    addNewCard({name: cardData.name, link: cardData.link})
+    .then((data) => {
+      console.log(data);
+      addCard(data, placesList)
+    })
+    
+    closePopup(popupNewCard);
+  }
+
+  /*Функция рендеринга карточки по массиву данных из сервера*/
+  function renderCards(arrayCards, userId){
+    arrayCards.forEach((card) =>{
+        addCard (card, placesList, userId);
+      })
+  }
 /*Функция извлечения данных карточки из сервера*/
-  export const extractData = (cardStorageServer) => {
+  /*export const extractData = (cardStorageServer) => {
     let objExctract = {
       carTitle: cardStorageServer.name,
       cardSrc: cardStorageServer.link,
       cardId: cardStorageServer._id,
+      cardLikes: cardStorageServer.likes.length,
     }
     return objExctract;
 
-  }
+  }*/
 
  /*Функция удалить карточку*/
  function removeCardItem (evt) {
   const carditem = evt.target.closest('.place');
   carditem.remove()
 }
+
+

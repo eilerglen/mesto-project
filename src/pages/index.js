@@ -2,14 +2,14 @@
 //*****
 import './index.css';
 import {initialCards, formsData, editButton, editButtonAvatar, addButton, popupCloseEdit,
-  popupCloseNewCard, popupCloseEditAvatar, inputAddTitle, inputAddLink, formEditProfileInfo,
+  popupCloseNewCard, popupCloseEditAvatar, formEditProfileInfo,
   formAddNewPlace, formEditProfileAvatar} from '../utils/constants.js';
-import {getInitialsCards, extractData,addCard} from '../components/card.js';
+import {addCard, addCardSubmit, renderCards} from '../components/card.js';
 import {enableValidation,resetValidation} from '../components/validate.js';
 import {closePopup, openPopupEvent, setValueFormEditor, submitValueFormProfile,
   submitValueFormProfileAvatar} from '../components/modal.js';
 import {popupEdit, popupNewCard, popupEditAvatar} from'../utils/constants.js';
-import {getProfileInfo, getCardsDataToServer} from '../components/api.js';
+import {getProfileInfo, getCardsDataToServer, getProfileAll} from '../components/api.js';
 import {profileInfoUpdate} from '../components/profile.js';
 
 //***PROFILE
@@ -57,23 +57,6 @@ popupCloseNewCard.addEventListener('click', () => {
 /*Обозначаем контейнер, куда карточки могут добавляться*/
 export const placesList = document.querySelector('.places__list');
 
-/*Отрисовываем все карточки из массива на странице в обозначенный контейнер*/
-getCardsDataToServer()
-  .then((arrayCards) => {
-    console.log(arrayCards)
-    arrayCards.forEach((card) =>{
-      console.log(card);
-      addCard (card, placesList);
-    })
-  });
-
-/*Функция создания карточки по клику*/
-
-function addCardSubmit (evt) {
-  evt.preventDefault();
-  addCard({name: inputAddTitle.value, link: inputAddLink.value}, placesList)
-  closePopup(popupNewCard);
-}
 
 /*Создаем новую карточку по событию submit*/
 formAddNewPlace.addEventListener('submit', addCardSubmit);
@@ -85,7 +68,15 @@ formEditProfileAvatar.addEventListener('submit', submitValueFormProfileAvatar)
 /*Валидируем все формы на странице*/
 enableValidation(formsData);
 //getProfileInfo();
+getProfileAll();
 
-getProfileInfo();
-profileInfoUpdate();
-
+Promise.all([getProfileInfo(), getCardsDataToServer()])
+.then((res) => {
+  const dataProfile = res[0];
+  const currentUserId = res[0]._id;
+  console.log(currentUserId);
+  const dataCards = res[1];
+  profileInfoUpdate(dataProfile);
+  renderCards(dataCards, currentUserId);
+  console.log(renderCards);
+})
