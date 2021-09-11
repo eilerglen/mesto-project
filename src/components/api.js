@@ -31,6 +31,7 @@ export const getCardsDataToServer = () => {
       if (res.ok) {
         return res.json();
       }
+      
     })
     .catch((err) => {
       console.log(err);

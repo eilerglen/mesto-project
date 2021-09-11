@@ -76,6 +76,7 @@ Promise.all([getProfileInfo(), getCardsDataToServer()])
   const currentUserId = res[0]._id;
   console.log(currentUserId);
   const dataCards = res[1];
+  console.log( dataCards)
   profileInfoUpdate(dataProfile);
   renderCards(dataCards, currentUserId);
   console.log(renderCards);

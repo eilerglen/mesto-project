@@ -6,7 +6,7 @@ import {openImagePopup, closePopup} from './modal.js'
 import {popupImage, inputAddTitle, inputAddLink, popupNewCard} from '../utils/constants.js'
 import {popupCloseImage} from '../utils/constants.js'
 import {cardLikeToggle} from './utils.js';
-import {addNewCard} from './api.js'
+import {addNewCard, likeCard, dislikeCard} from './api.js'
 import {placesList} from '../pages/index.js'
 /*Функция создания карточки*/
 
@@ -30,21 +30,41 @@ function createCard(data, userId) {
     else {
       placeCardItem.querySelector('.place__delete-button').addEventListener('click', removeCardItem);
     }
+
+    const isLiked = defineCurrentUserLike(data, userId);
+    if(isLiked) {
+      placeCardItem.querySelector('.place__icon').classList.add('.place__icon_active');
+      dislikeCard(data._id).then((res) => {
+        console.log(res);
+      })
+
+    }
+
+    else { placeCardItem.querySelector('.place__icon').classList.remove('.place__icon_active')}
+      likeCard(data._id).then((res) => {
+      console.log(res);
+    })
    
-   /*Карточка нуждается в оценке, поэтому вешаем обработчик на кнопку лайка*/
-    placeCardItem.querySelector('.place__icon').addEventListener('click', cardLikeToggle)
+    /*Карточка нуждается в оценке, поэтому вешаем обработчик на кнопку лайка*/
+    
+   placeCardItem.querySelector('.place__icon').addEventListener('click', cardLikeToggle)
+
     
    /*Щелчок по карточке должен отобразить ее scaleImagePreview*/
     placeCardItem.querySelector('.place__img').addEventListener('click', () => {
     openImagePopup(data.link, data.name, data.name)
   });
-
+   
     //Закрытие popup картинки
     popupCloseImage.addEventListener('click', () => {
     closePopup(popupImage)
     });
 
     return placeCardItem;
+  }
+
+  function defineCurrentUserLike(arrLikes, currentId) {
+    arrLikes.likes.filter((item) => { return item._id === currentId; }).length > 0;
   }
 
 /*Функция добавления карточки в начало контейнера*/
@@ -62,7 +82,6 @@ function createCard(data, userId) {
 
     addNewCard({name: cardData.name, link: cardData.link})
     .then((data) => {
-      console.log(data);
       addCard(data, placesList)
     })
     
@@ -75,19 +94,9 @@ function createCard(data, userId) {
         addCard (card, placesList, userId);
       })
   }
-/*Функция извлечения данных карточки из сервера*/
-  /*export const extractData = (cardStorageServer) => {
-    let objExctract = {
-      carTitle: cardStorageServer.name,
-      cardSrc: cardStorageServer.link,
-      cardId: cardStorageServer._id,
-      cardLikes: cardStorageServer.likes.length,
-    }
-    return objExctract;
-
-  }*/
 
  /*Функция удалить карточку*/
+
  function removeCardItem (evt) {
   const carditem = evt.target.closest('.place');
   carditem.remove()
