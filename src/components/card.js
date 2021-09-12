@@ -31,22 +31,35 @@ function createCard(data, userId) {
       placeCardItem.querySelector('.place__delete-button').addEventListener('click', removeCardItem);
     }
 
-    const isLiked = defineCurrentUserLike(data, userId);
-    if(isLiked) {
-      placeCardItem.querySelector('.place__icon').classList.add('.place__icon_active');
-      dislikeCard(data._id).then((res) => {
-        console.log(res);
-      })
-
+    //const isLiked = defineCurrentUserLike(data, userId);
+    if(defineCurrentUserLike(data, userId)) {
+      console.log(defineCurrentUserLike(data, userId));
+      placeCardItem.querySelector('.place__icon').classList.add('place__icon_active');
+      
     }
-
-    else { placeCardItem.querySelector('.place__icon').classList.remove('.place__icon_active')}
-      likeCard(data._id).then((res) => {
-      console.log(res);
-    })
-   
-    /*Карточка нуждается в оценке, поэтому вешаем обработчик на кнопку лайка*/
+    //else { placeCardItem.querySelector('.place__icon').classList.remove('place__icon_active')}
+  
+    function cardLikeToggle (evt) {
+      const e = evt.target;
+      if(e.classList.contains('place__icon_active')) {
+        e.classList.remove('place__icon_active');
+        dislikeCard(data._id).then(() => {
+          defineCurrentUserLike(data, userId)
+          placeCardItem.querySelector('.place__count-like').textContent = data.likes.length;
+        })
+        
+      }
+      else {
+        e.classList.add('place__icon_active')
+        likeCard(data._id).then(() => {
+          defineCurrentUserLike(data, userId)
+          placeCardItem.querySelector('.place__count-like').textContent = data.likes.length;
+        })
+      }
+    }
     
+
+  /*Карточка нуждается в оценке, поэтому вешаем обработчик на кнопку лайка*/
    placeCardItem.querySelector('.place__icon').addEventListener('click', cardLikeToggle)
 
     
@@ -64,7 +77,9 @@ function createCard(data, userId) {
   }
 
   function defineCurrentUserLike(arrLikes, currentId) {
-    arrLikes.likes.filter((item) => { return item._id === currentId; }).length > 0;
+    arrLikes.likes.forEach((users) => {
+      return Object.values(users).includes(currentId);
+    })
   }
 
 /*Функция добавления карточки в начало контейнера*/
