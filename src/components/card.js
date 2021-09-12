@@ -17,7 +17,7 @@ function createCard(data, userId) {
 
     /*Клонировали разметку HTML и обозначили, что нужно return этой функции*/
     const placeCardItem = templateCard.querySelector('.place').cloneNode(true);
-  
+
     /*Устанавливаем конфиг для рендеринга контента карточки из словаря*/
     placeCardItem.querySelector('.place__img').src = data.link;
     placeCardItem.querySelector('.place__img').alt = data.name;
@@ -31,43 +31,33 @@ function createCard(data, userId) {
       placeCardItem.querySelector('.place__delete-button').addEventListener('click', removeCardItem);
     }
 
-    //const isLiked = defineCurrentUserLike(data, userId);
-    if(defineCurrentUserLike(data, userId)) {
-      console.log(defineCurrentUserLike(data, userId));
-      placeCardItem.querySelector('.place__icon').classList.add('place__icon_active');
-      
-    }
-    //else { placeCardItem.querySelector('.place__icon').classList.remove('place__icon_active')}
-  
-    function cardLikeToggle (evt) {
-      const e = evt.target;
-      if(e.classList.contains('place__icon_active')) {
-        e.classList.remove('place__icon_active');
-        dislikeCard(data._id).then(() => {
-          defineCurrentUserLike(data, userId)
-          placeCardItem.querySelector('.place__count-like').textContent = data.likes.length;
-        })
-        
-      }
-      else {
-        e.classList.add('place__icon_active')
-        likeCard(data._id).then(() => {
-          defineCurrentUserLike(data, userId)
-          placeCardItem.querySelector('.place__count-like').textContent = data.likes.length;
-        })
-      }
-    }
-    
+    defineCurrentUserLike(data, userId, placeCardItem);
+
 
   /*Карточка нуждается в оценке, поэтому вешаем обработчик на кнопку лайка*/
    placeCardItem.querySelector('.place__icon').addEventListener('click', cardLikeToggle)
 
-    
+   function cardLikeToggle (evt) {
+    const e = evt.target;
+    if(e.classList.contains('place__icon_active')) {
+      e.classList.remove('place__icon_active');
+      dislikeCard(data._id).then(() => {
+        placeCardItem.querySelector('.place__count-like').textContent = data.likes.length;
+      })
+
+    }
+    else {
+      e.classList.add('place__icon_active')
+      likeCard(data._id).then(() => {
+        placeCardItem.querySelector('.place__count-like').textContent = data.likes.length;
+      })
+    }
+  }
    /*Щелчок по карточке должен отобразить ее scaleImagePreview*/
     placeCardItem.querySelector('.place__img').addEventListener('click', () => {
     openImagePopup(data.link, data.name, data.name)
   });
-   
+
     //Закрытие popup картинки
     popupCloseImage.addEventListener('click', () => {
     closePopup(popupImage)
@@ -75,10 +65,12 @@ function createCard(data, userId) {
 
     return placeCardItem;
   }
-
-  function defineCurrentUserLike(arrLikes, currentId) {
-    arrLikes.likes.forEach((users) => {
-      return Object.values(users).includes(currentId);
+  /*Функция определения поставил ли текущий юзер лайк карточки*/
+  function defineCurrentUserLike(arrLikes, currentId, elem) {
+    arrLikes.likes.forEach((user) => {
+     if(user._id === currentId) {
+      elem.querySelector('.place__icon').classList.add('place__icon_active');
+     }
     })
   }
 
@@ -99,7 +91,7 @@ function createCard(data, userId) {
     .then((data) => {
       addCard(data, placesList)
     })
-    
+
     closePopup(popupNewCard);
   }
 
