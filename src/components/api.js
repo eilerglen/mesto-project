@@ -6,20 +6,19 @@ const config = {
   },
 };
 
+const getResponseData = (res) => {
+ if(res.ok) {
+   return res.json();
+ }
+ return Promise.reject(`Ошибка: ${res.status}`);
+}
+
 export function getProfileInfo(){
   return fetch(`${config.baseUrl}/users/me`,{
     method: "GET",
     headers: config.headers,
   })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) =>{
-      console.log(err);
-    })
+    .then(getResponseData);
 }
 
 export const getCardsDataToServer = () => {
@@ -27,31 +26,7 @@ export const getCardsDataToServer = () => {
     method: "GET",
     headers: config.headers,
   })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-
-export function getProfileAll(){
-  return fetch(`${config.baseUrl}/users/`,{
-    method: "GET",
-    headers: config.headers,
-  })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) =>{
-      console.log(err);
-    })
+  .then(getResponseData);
 }
 
 export function updateProfileInfo(name, about) {
@@ -72,7 +47,7 @@ export function updateProfileAvatar(url) {
     body: JSON.stringify({
       avatar: url,
     })
-  })
+  }).then(getResponseData);
 }
 
 
@@ -85,18 +60,14 @@ export function addNewCard(data) {
       name: data.name,
       link: data.link,
     })
-  })
+  }).then(getResponseData);
 }
 
 export function dropCard(cardId) {
   return fetch(`${config.baseUrl}/cards/${cardId}`,{
     method: 'DELETE',
     headers: config.headers,
-  }).then((res) =>{
-    if(res.ok){
-      return res.json();
-    }
-  })
+  }).then(getResponseData);
 }
 
 export const likeCard = (cardId) => {
@@ -104,15 +75,7 @@ export const likeCard = (cardId) => {
     method: "PUT",
     headers: config.headers,
   })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    })
-
-    .catch((err) => {
-      console.log(err);
-    });
+  .then(getResponseData);
 };
 
 export const dislikeCard = (cardId) => {
@@ -120,12 +83,5 @@ export const dislikeCard = (cardId) => {
     method: "DELETE",
     headers: config.headers,
   })
-    .then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  .then(getResponseData);
 };

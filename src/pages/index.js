@@ -1,15 +1,15 @@
 /*Импорты наше все*/
 //*****
 import './index.css';
-import {initialCards, formsData, editButton, editButtonAvatar, addButton, popupCloseEdit,
+import {formsData, editButton, editButtonAvatar, addButton, popupCloseEdit,
   popupCloseNewCard, popupCloseEditAvatar, formEditProfileInfo,
   formAddNewPlace, formEditProfileAvatar} from '../utils/constants.js';
-import {addCard, addCardSubmit, renderCards} from '../components/card.js';
+import {addCardSubmit, renderCards} from '../components/card.js';
 import {enableValidation,resetValidation} from '../components/validate.js';
 import {closePopup, openPopupEvent, setValueFormEditor, submitValueFormProfile,
   submitValueFormProfileAvatar} from '../components/modal.js';
 import {popupEdit, popupNewCard, popupEditAvatar} from'../utils/constants.js';
-import {getProfileInfo, getCardsDataToServer, getProfileAll} from '../components/api.js';
+import {getProfileInfo, getCardsDataToServer} from '../components/api.js';
 import {profileInfoUpdate} from '../components/profile.js';
 
 //***PROFILE
@@ -68,16 +68,12 @@ formEditProfileAvatar.addEventListener('submit', submitValueFormProfileAvatar)
 /*Валидируем все формы на странице*/
 enableValidation(formsData);
 //getProfileInfo();
-getProfileAll();
 
 Promise.all([getProfileInfo(), getCardsDataToServer()])
 .then((res) => {
   const dataProfile = res[0];
   const currentUserId = res[0]._id;
-  console.log(currentUserId);
   const dataCards = res[1];
-  console.log( dataCards)
   profileInfoUpdate(dataProfile);
   renderCards(dataCards, currentUserId);
-  console.log(renderCards);
 })

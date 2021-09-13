@@ -2,8 +2,9 @@
 import {popupList, popupEdit, popupImage, placeImageScale,
   placeImageScaleCaption, inputEditProfileName, inputEditProfileProf,
   inputEditProfileAvatar, profileName, profileProfession,
-  popupEditAvatar} from '../utils/constants.js';
+  popupEditAvatar, profileAvatar} from '../utils/constants.js';
 import {updateProfileAvatar, updateProfileInfo} from '../components/api.js';
+import {loadingStateRender} from '../components/utils.js';
 //Функция открытия popup и одевания слушателей по ESC и клику по области вне тела
 
 function openPopupEvent(popup) {
@@ -28,7 +29,6 @@ const closePopupEsc = (evt) => {
     });
   }
 }
-
 
 //Функция открытия popup по оверлею
 const closePopupOverlay = (evt) => {
@@ -55,12 +55,31 @@ function submitValueFormProfile (evt) {
   profileName.textContent = inputEditProfileName.value;
   profileProfession.textContent = inputEditProfileProf.value;
   updateProfileInfo(inputEditProfileName.value, inputEditProfileProf.value)
+  .then((data) =>{
+    profileName.textContent = data.name;
+    profileProfession.textContent = data.about;
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  .finally(() =>{
+    loadingStateRender(popupEdit, true)
+  })
   closePopup(popupEdit);
 }
 function submitValueFormProfileAvatar(evt) {
   evt.preventDefault();
-  let newAvatar = inputEditProfileAvatar.value;
-  updateProfileAvatar(newAvatar);
+  updateProfileAvatar(inputEditProfileAvatar.value)
+  .then((res) => {
+    profileAvatar.src = res.avatar;
+  })
+
+  .catch((err) => {
+    console.log(err);
+  })
+  .finally(() =>{
+    loadingStateRender(popupEditAvatar, true)
+  });
   closePopup(popupEditAvatar);
 }
 

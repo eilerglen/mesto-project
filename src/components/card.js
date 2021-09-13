@@ -5,8 +5,8 @@ export {createCard, addCard, addCardSubmit, renderCards};
 import {openImagePopup, closePopup} from './modal.js'
 import {popupImage, inputAddTitle, inputAddLink, popupNewCard} from '../utils/constants.js'
 import {popupCloseImage} from '../utils/constants.js'
-import {cardLikeToggle} from './utils.js';
-import {addNewCard, likeCard, dislikeCard} from './api.js'
+import {loadingStateRender} from './utils.js';
+import {addNewCard, likeCard, dislikeCard, dropCard} from './api.js'
 import {placesList} from '../pages/index.js'
 /*Функция создания карточки*/
 
@@ -44,8 +44,9 @@ function createCard(data, userId) {
         placeCardItem.querySelector('.place__count-like').textContent = res.likes.length
         console.log(res.likes.length);
       })
-
-
+      .catch((err) => {
+        console.log(err);
+      })
     }
     else {
       e.classList.add('place__icon_active')
@@ -54,6 +55,9 @@ function createCard(data, userId) {
           placeCardItem.querySelector('.place__count-like').textContent = res.likes.length
           console.log(res.likes.length);
         })
+      .catch((err) => {
+        console.log(err);
+      })
     }
   }
    /*Щелчок по карточке должен отобразить ее scaleImagePreview*/
@@ -79,10 +83,6 @@ function createCard(data, userId) {
     })
   }
 
- function updateLikeCount(cardId, likeArr) {
-    cardId.querySelector('.place__count-like').textContent = likeArr.length;
-  }
-
 /*Функция добавления карточки в начало контейнера*/
   function addCard (data, container, userId) {
     const place = createCard(data, userId);
@@ -100,7 +100,12 @@ function createCard(data, userId) {
     .then((data) => {
       addCard(data, placesList)
     })
-
+    .catch((err) =>{
+      console.log(err);
+    })
+    .finally(() =>{
+      loadingStateRender(popupNewCard, true)
+    })
     closePopup(popupNewCard);
   }
 
@@ -114,8 +119,14 @@ function createCard(data, userId) {
  /*Функция удалить карточку*/
 
  function removeCardItem (evt) {
-  const carditem = evt.target.closest('.place');
-  carditem.remove()
+  const cardItem = evt.target.closest('.place');
+  dropCard(cardItem.id)
+  .then(() =>{
+    cardItem.remove();
+  })
+  .catch((err) => {
+    console.log(err);
+  })
 }
 
 
