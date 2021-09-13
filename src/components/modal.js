@@ -49,16 +49,12 @@ function setValueFormEditor () {
 
 };
 
-//Раз уж начали popup редактирования юзать, значить надо засабмитить, таков путь
+//Сохраняем данные из полей ввода формы редактирования профиля на сервер
 function submitValueFormProfile (evt) {
   evt.preventDefault();
   profileName.textContent = inputEditProfileName.value;
   profileProfession.textContent = inputEditProfileProf.value;
   updateProfileInfo(inputEditProfileName.value, inputEditProfileProf.value)
-  .then((data) =>{
-    profileName.textContent = data.name;
-    profileProfession.textContent = data.about;
-  })
   .catch((err) => {
     console.log(err);
   })
@@ -67,13 +63,12 @@ function submitValueFormProfile (evt) {
   })
   closePopup(popupEdit);
 }
+
+//Сохраняем данные из полей ввода формы смены аватара на сервер
 function submitValueFormProfileAvatar(evt) {
   evt.preventDefault();
+  profileAvatar.src = inputEditProfileAvatar.value;
   updateProfileAvatar(inputEditProfileAvatar.value)
-  .then((res) => {
-    profileAvatar.src = res.avatar;
-  })
-
   .catch((err) => {
     console.log(err);
   })

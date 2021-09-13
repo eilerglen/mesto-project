@@ -1,37 +1,10 @@
-export { initialCards, formsData, popupList, popupEdit, popupNewCard, popupImage,
+export {formsData, popupList, popupEdit, popupNewCard, popupImage,
   popupEditAvatar, placeImageScale, placeImageScaleCaption, inputEditProfileName,
   inputEditProfileProf, inputEditProfileAvatar, profileName, profileProfession,
   profileAvatar, editButton, editButtonAvatar, popupCloseEdit, popupCloseEditAvatar,
   inputAddTitle, inputAddLink, formEditProfileInfo, formEditProfileAvatar, formAddNewPlace,
   addButton, popupCloseNewCard, popupCloseImage}
 
-/*Массив карточек из коробки */
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 /*Данные для валидации форм */
 const formsData = {
   formSelector:'.popup__form',
@@ -41,8 +14,6 @@ const formsData = {
   inActiveButtonClass: 'popup__button_disabled',
   errorClass: '.popup__error_visible',
 }
-
-/*Экспортируем нужные данные, чтобы хоть один попап открылся */
 
 /*Popups*/
 const popupList = document.querySelectorAll('.popup');
@@ -55,13 +26,13 @@ const placeImageScale = popupImage.querySelector('.popup__image');
 const placeImageScaleCaption = popupImage.querySelector('.popup__caption');
 
 /*переменные для полей редактирования профиля */
+/*Поля ввода для профиля */
 const inputEditProfileName = popupEdit.querySelector('#username');
 const inputEditProfileProf = popupEdit.querySelector('#profession');
+const inputEditProfileAvatar = popupEditAvatar.querySelector('#avatar-link');
+/*контейнеры для полей ввода */
 const profileName = document.querySelector('.profile__title');
 const profileProfession = document.querySelector('.profile__subtitle');
-
-/*переменные для полей редактирования профиля */
-const inputEditProfileAvatar = popupEditAvatar.querySelector('#avatar-link');
 const profileAvatar = document.querySelector('.profile__avatar');
 
 /*Кнопки управления popup/формой редактирования профиля и авы*/
