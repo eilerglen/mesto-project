@@ -31,7 +31,7 @@ export const getCardsDataToServer = () => {
       if (res.ok) {
         return res.json();
       }
-      
+
     })
     .catch((err) => {
       console.log(err);
@@ -79,18 +79,18 @@ export function updateProfileAvatar(url) {
 
 export function addNewCard(data) {
   return fetch(`${config.baseUrl}/cards/`,{
-    method: 'POST', 
+    method: 'POST',
     headers: config.headers,
     body: JSON.stringify({
       name: data.name,
       link: data.link,
     })
-  }) 
+  })
 }
 
 export function dropCard(cardId) {
   return fetch(`${config.baseUrl}/cards/${cardId}`,{
-    method: 'DELETE', 
+    method: 'DELETE',
     headers: config.headers,
   }).then((res) =>{
     if(res.ok){
@@ -106,9 +106,10 @@ export const likeCard = (cardId) => {
   })
     .then((res) => {
       if (res.ok) {
-        res.json();
+        return res.json();
       }
     })
+
     .catch((err) => {
       console.log(err);
     });
@@ -121,7 +122,7 @@ export const dislikeCard = (cardId) => {
   })
     .then((res) => {
       if (res.ok) {
-        res.json();
+        return res.json();
       }
     })
     .catch((err) => {
