@@ -1,14 +1,17 @@
-/*Экспортируем готовые функции*/
-export {createCard, addCard};
+/*Экспорт готовых функции*/
+export {createCard, addCard, addCardSubmit, renderCards};
 
-/*Импортируем данные для создания функциональности*/
+/*Импортируем необходиые данные для создания функциональности*/
 import {openImagePopup, closePopup} from './modal.js'
-import {popupImage} from '../utils/constants.js'
-import {popupCloseImage} from '../utils/constants.js'
-import {cardLikeToggle} from './utils.js';
+import {popupImage, inputAddTitle, inputAddLink, popupNewCard} from '../utils/constants.js'
+import {popupCloseImage, formAddNewPlace} from '../utils/constants.js'
+import {loadingStateRender, updateCountLike} from './utils.js';
+import {addNewCard, likeCard, dislikeCard, dropCard} from './api.js'
+import {placesList} from '../pages/index.js'
 
 /*Функция создания карточки*/
-function createCard(data) {
+function createCard(data, userId) {
+
     /*Обозначили темплейт тела карточки*/
     const templateCard = document.querySelector('#template-place').content;
 
@@ -19,12 +22,24 @@ function createCard(data) {
     placeCardItem.querySelector('.place__img').src = data.link;
     placeCardItem.querySelector('.place__img').alt = data.name;
     placeCardItem.querySelector('.place__title').textContent = data.name;
+    placeCardItem.setAttribute("id", data._id);
+    placeCardItem.querySelector('.place__count-like').textContent = data.likes.length;
 
-   /*Карточка нуждается в оценке, поэтому вешаем обработчик на кнопку лайка*/
-    placeCardItem.querySelector('.place__icon').addEventListener('click', cardLikeToggle)
+     /*Если юзер не владелец карточки, то ее удалять нельзя: скрываем иконку удаления*/
+    if(!(data.owner._id === userId))  {
+      placeCardItem.querySelector('.place__delete-button').style.display = "none";
+    }
+    /*Если юзер владелец карточки, то ее можно удалить*/
+    else {
+      placeCardItem.querySelector('.place__delete-button').addEventListener('click', removeCardItem);
+    }
+    /*Вызов функции, определяющей, что юзер уже поставил лайк карточке*/
+    defineCurrentUserLike(data, userId, placeCardItem);
 
-   /*Иногда карточку приходится удалять*/
-    placeCardItem.querySelector('.place__delete-button').addEventListener('click', removeCardItem);
+  /*Вне зависимости поставил или нет, вешаем обработчик на кнопку лайка*/
+   placeCardItem.querySelector('.place__icon').addEventListener('click', function(evt) {
+     cardLikeToggle(evt, placeCardItem, data);
+   });
 
    /*Щелчок по карточке должен отобразить ее scaleImagePreview*/
     placeCardItem.querySelector('.place__img').addEventListener('click', () => {
@@ -35,25 +50,98 @@ function createCard(data) {
     popupCloseImage.addEventListener('click', () => {
     closePopup(popupImage)
     });
-
-
     return placeCardItem;
   }
 
-  //Разделяй и властвуй. Функции формирующие функцию создания карточки
+  ///****
 
-  /*Функция удалить карточку*/
-  function removeCardItem (evt) {
-    const carditem = evt.target.closest('.place');
-    carditem.remove()
+   /*Функция, обновляющая счетчик лайков из сервера*/
+   function cardLikeToggle (evt, container, cardItem) {
+    const e = evt.target;
+    if(e.classList.contains('place__icon_active')) {
+      e.classList.remove('place__icon_active');
+      dislikeCard(cardItem._id)
+      .then((res) => {
+        updateCountLike(container, res);
+        console.log(res.likes.length);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    }
+    else {
+      e.classList.add('place__icon_active')
+      likeCard(cardItem._id)
+      .then((res) => {
+        updateCountLike(container, res);
+          console.log(res.likes.length);
+        })
+      .catch((err) => {
+        console.log(err);
+      })
+    }
   }
 
-//*****
 
-/*Функция добавления карточки в начало контейнера*/
-  function addCard (data, container) {
-    const place = createCard(data);
+  /*Функция, определяющая, поставил ли текущий юзер лайк карточки или нет и задающая нужный флаг-селектор*/
+  function defineCurrentUserLike(element, currentId, elem) {
+    element.likes.forEach((user) => {
+     if(user._id === currentId) {
+      elem.querySelector('.place__icon').classList.add('place__icon_active');
+     }
+    })
+  }
+
+/*Функция добавления карточки, в частности, в начало контейнера*/
+  function addCard (data, container, userId) {
+    const place = createCard(data, userId);
     container.prepend(place);
   }
+
+/*Функция рендеринга карточек по массиву данных из сервера*/
+  function renderCards(arrayCards, userId){
+    arrayCards.forEach((card) =>{
+        addCard (card, placesList, userId);
+      })
+  }
+
+/*Функция-обработчик формы создания новой карточки*/
+  function addCardSubmit (evt) {
+    evt.preventDefault();
+    loadingStateRender(popupNewCard, true)
+    const cardData = {
+      name: inputAddTitle.value,
+      link: inputAddLink.value,
+    }
+    /*Вызвали функцию, которая стучится к серверу и испольузет метод POST*/
+    addNewCard({name: cardData.name, link: cardData.link})
+    .then((data) => {
+      addCard(data, placesList, data.owner._id)
+    })
+    .then(() => {
+      formAddNewPlace.reset();
+    })
+    .catch((err) =>{
+      console.log(err);
+    })
+    .finally(() =>{
+      loadingStateRender(popupNewCard, false)
+    })
+    closePopup(popupNewCard);
+  }
+
+
+ /*Функция удалить карточку*/
+ function removeCardItem (evt) {
+  const cardItem = evt.target.closest('.place');
+  /*Функция, которая посылает запрос на сервер для удаления карточки*/
+  dropCard(cardItem.id)
+  .then(() => {
+    cardItem.remove();
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
 
 

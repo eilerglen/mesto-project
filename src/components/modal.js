@@ -1,17 +1,19 @@
 /*Окна модальные, попапы многострадальные */
 import {popupList, popupEdit, popupImage, placeImageScale,
   placeImageScaleCaption, inputEditProfileName, inputEditProfileProf,
-  profileName, profileProfession} from '../utils/constants.js';
+  inputEditProfileAvatar, profileName, profileProfession,
+  popupEditAvatar, profileAvatar, formEditProfileInfo, formEditProfileAvatar} from '../utils/constants.js';
+import {updateProfileAvatar, updateProfileInfo} from '../components/api.js';
+import {loadingStateRender} from '../components/utils.js';
 
 //Функция открытия popup и одевания слушателей по ESC и клику по области вне тела
-
 function openPopupEvent(popup) {
   popup.classList.add("popup_opened");
   document.addEventListener('keyup', closePopupEsc);
   popup.addEventListener('click', closePopupOverlay);
 }
 
-//Функция закрытия popup  и снятия слушателей
+//Функция закрытия popup и снятия слушателей
 function closePopup(popup) {
   popup.classList.remove("popup_opened")
   document.removeEventListener('keyup', closePopupEsc);
@@ -28,7 +30,6 @@ const closePopupEsc = (evt) => {
   }
 }
 
-
 //Функция открытия popup по оверлею
 const closePopupOverlay = (evt) => {
   if(evt.target.classList.contains('popup')) {
@@ -38,7 +39,6 @@ const closePopupOverlay = (evt) => {
   }
 }
 
-//Функция закрытия форм без сохранения
 
 //Инициализация значений полей и открытия popup редактирования
 function setValueFormEditor () {
@@ -47,16 +47,48 @@ function setValueFormEditor () {
   openPopupEvent(popupEdit);
 
 };
-//Раз уж начали popup редактирования юзать, значить надо засабмитить, таков путь
+
+//Сохраняем данные из полей ввода формы редактирования профиля на сервер
 function submitValueFormProfile (evt) {
   evt.preventDefault();
+  // Меняем контекст кнопки сабмита
+  loadingStateRender(popupEdit, true);
   profileName.textContent = inputEditProfileName.value;
   profileProfession.textContent = inputEditProfileProf.value;
-  closePopup(popupEdit);
+  updateProfileInfo(inputEditProfileName.value, inputEditProfileProf.value)
+  .then(()=> {
+    formEditProfileInfo.reset();
+    closePopup(popupEdit);
 
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  .finally(() =>{
+    loadingStateRender(popupEdit, false);
+  })
 }
 
-/*Функция, в которой щелчок по карточке должен отобразить ее scaleImagePreview*/
+//Сохраняем данные из полей ввода формы смены аватара на сервер
+function submitValueFormProfileAvatar(evt) {
+  evt.preventDefault();
+  loadingStateRender(popupEditAvatar, true);
+  profileAvatar.src = inputEditProfileAvatar.value;
+  updateProfileAvatar(inputEditProfileAvatar.value)
+  .then(() => {
+    formEditProfileAvatar.reset();
+    closePopup(popupEditAvatar);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  .finally(() => {
+    loadingStateRender(popupEditAvatar, false);
+  });
+}
+
+
+/*Функция, в которой щелчок по карточке должен отобразить ее scaleImagePreview_popup*/
 function openImagePopup (src, alt, name) {
   placeImageScale.src = src;
   placeImageScale.alt = alt;
@@ -65,4 +97,5 @@ function openImagePopup (src, alt, name) {
 }
 
 //Экспортируем готовые функции
-export {closePopup, openImagePopup, openPopupEvent, setValueFormEditor, submitValueFormProfile}
+export {closePopup, openImagePopup, openPopupEvent, setValueFormEditor,
+  submitValueFormProfile, submitValueFormProfileAvatar }

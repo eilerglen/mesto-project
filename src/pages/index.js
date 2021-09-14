@@ -1,17 +1,26 @@
 /*Импорты наше все*/
 //*****
 import './index.css';
-import {initialCards, formsData, editButton, addButton, popupCloseEdit, popupCloseNewCard,
-  inputAddTitle, inputAddLink, formEditProfileInfo, formAddNewPlace} from '../utils/constants.js';
-import {addCard} from '../components/card.js';
+import {formsData, editButton, editButtonAvatar, addButton, popupCloseEdit,
+  popupCloseNewCard, popupCloseEditAvatar, formEditProfileInfo,
+  formAddNewPlace, formEditProfileAvatar} from '../utils/constants.js';
+import {addCardSubmit, renderCards} from '../components/card.js';
 import {enableValidation,resetValidation} from '../components/validate.js';
-import {closePopup, openPopupEvent, setValueFormEditor, submitValueFormProfile} from '../components/modal.js';
-import {popupEdit, popupNewCard} from'../utils/constants.js';
-
+import {closePopup, openPopupEvent, setValueFormEditor, submitValueFormProfile,
+  submitValueFormProfileAvatar} from '../components/modal.js';
+import {popupEdit, popupNewCard, popupEditAvatar} from'../utils/constants.js';
+import {getProfileInfo, getCardsDataToServer} from '../components/api.js';
+import {profileInfoUpdate} from '../components/profile.js';
+import {loadingStateRender} from '../components/utils.js';
 //***PROFILE
 
 //Реализация открытия popup/form редактирования профиля
-editButton.addEventListener('click', setValueFormEditor)
+editButton.addEventListener('click', () =>{
+  setValueFormEditor(),
+  loadingStateRender(popupEdit, false);
+});
+
+
 
 //Реализация простого закрытия popup редактирования профиля
 popupCloseEdit.addEventListener('click', () => {
@@ -31,6 +40,18 @@ addButton.addEventListener('click', () => {
   resetValidation(popupNewCard);
 });
 
+//Реализация открытия popup смены аватарки
+editButtonAvatar.addEventListener('click', () =>{
+  formEditProfileAvatar.reset();
+  openPopupEvent(popupEditAvatar);
+  resetValidation(popupEditAvatar);
+})
+
+popupCloseEditAvatar.addEventListener('click', ()=>{
+  formEditProfileAvatar.reset();
+  closePopup(popupEditAvatar);
+})
+
 //Реализация закрытия popup добавления карточки
 popupCloseNewCard.addEventListener('click', () => {
   formAddNewPlace.reset();
@@ -38,27 +59,25 @@ popupCloseNewCard.addEventListener('click', () => {
 });
 
 /*Обозначаем контейнер, куда карточки могут добавляться*/
-const placesList = document.querySelector('.places__list');
+export const placesList = document.querySelector('.places__list');
 
-/*Отрисовываем все карточки из массива на странице в обозначенный контейнер*/
-initialCards.forEach((item) => {
-  addCard(item, placesList);
-});
 
-/*Функция создания карточки по клику*/
-
-function addCardSubmit (evt) {
-  evt.preventDefault();
-  addCard({name: inputAddTitle.value, link: inputAddLink.value}, placesList)
-  closePopup(popupNewCard);
-
-}
 /*Создаем новую карточку по событию submit*/
 formAddNewPlace.addEventListener('submit', addCardSubmit);
 
-/***** Все нужно валидировать, иначе нельзя
+/*Обновляем аву по событию submit*/
+formEditProfileAvatar.addEventListener('submit', submitValueFormProfileAvatar)
 
+/***** Все нужно валидировать, иначе нельзя
 /*Валидируем все формы на странице*/
 enableValidation(formsData);
+//getProfileInfo();
 
-
+Promise.all([getProfileInfo(), getCardsDataToServer()])
+.then((res) => {
+  const dataProfile = res[0];
+  const currentUserId = res[0]._id;
+  const dataCards = res[1];
+  profileInfoUpdate(dataProfile);
+  renderCards(dataCards, currentUserId);
+})
