@@ -4,8 +4,8 @@ export {createCard, addCard, addCardSubmit, renderCards};
 /*Импортируем необходиые данные для создания функциональности*/
 import {openImagePopup, closePopup} from './modal.js'
 import {popupImage, inputAddTitle, inputAddLink, popupNewCard} from '../utils/constants.js'
-import {popupCloseImage} from '../utils/constants.js'
-import {loadingStateRender} from './utils.js';
+import {popupCloseImage, formAddNewPlace} from '../utils/constants.js'
+import {loadingStateRender, updateCountLike} from './utils.js';
 import {addNewCard, likeCard, dislikeCard, dropCard} from './api.js'
 import {placesList} from '../pages/index.js'
 
@@ -29,41 +29,18 @@ function createCard(data, userId) {
     if(!(data.owner._id === userId))  {
       placeCardItem.querySelector('.place__delete-button').style.display = "none";
     }
-    /*Если юзер ладелец карточки, то ее удлять можно*/
+    /*Если юзер владелец карточки, то ее можно удалить*/
     else {
       placeCardItem.querySelector('.place__delete-button').addEventListener('click', removeCardItem);
     }
-    /*Вызов функции, определяющей, что юзер поставил лайк какой-либо карточке*/
+    /*Вызов функции, определяющей, что юзер уже поставил лайк карточке*/
     defineCurrentUserLike(data, userId, placeCardItem);
 
-  /*Карточка нуждается в оценке, поэтому вешаем обработчик на кнопку лайка*/
-   placeCardItem.querySelector('.place__icon').addEventListener('click', cardLikeToggle)
+  /*Вне зависимости поставил или нет, вешаем обработчик на кнопку лайка*/
+   placeCardItem.querySelector('.place__icon').addEventListener('click', function(evt) {
+     cardLikeToggle(evt, placeCardItem, data);
+   });
 
-   function cardLikeToggle (evt) {
-    const e = evt.target;
-    if(e.classList.contains('place__icon_active')) {
-      e.classList.remove('place__icon_active');
-      dislikeCard(data._id)
-      .then((res) => {
-        placeCardItem.querySelector('.place__count-like').textContent = res.likes.length
-        console.log(res.likes.length);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-    }
-    else {
-      e.classList.add('place__icon_active')
-      likeCard(data._id)
-      .then((res) => {
-          placeCardItem.querySelector('.place__count-like').textContent = res.likes.length
-          console.log(res.likes.length);
-        })
-      .catch((err) => {
-        console.log(err);
-      })
-    }
-  }
    /*Щелчок по карточке должен отобразить ее scaleImagePreview*/
     placeCardItem.querySelector('.place__img').addEventListener('click', () => {
     openImagePopup(data.link, data.name, data.name)
@@ -73,12 +50,40 @@ function createCard(data, userId) {
     popupCloseImage.addEventListener('click', () => {
     closePopup(popupImage)
     });
-
     return placeCardItem;
   }
 
+  ///****
 
-  /*Функция, определяющая, поставил ли текущий юзер лайк карточки или нет*/
+   /*Функция, обновляющая счетчик лайков из сервера*/
+   function cardLikeToggle (evt, container, cardItem) {
+    const e = evt.target;
+    if(e.classList.contains('place__icon_active')) {
+      e.classList.remove('place__icon_active');
+      dislikeCard(cardItem._id)
+      .then((res) => {
+        updateCountLike(container, res);
+        console.log(res.likes.length);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    }
+    else {
+      e.classList.add('place__icon_active')
+      likeCard(cardItem._id)
+      .then((res) => {
+        updateCountLike(container, res);
+          console.log(res.likes.length);
+        })
+      .catch((err) => {
+        console.log(err);
+      })
+    }
+  }
+
+
+  /*Функция, определяющая, поставил ли текущий юзер лайк карточки или нет и задающая нужный флаг-селектор*/
   function defineCurrentUserLike(element, currentId, elem) {
     element.likes.forEach((user) => {
      if(user._id === currentId) {
@@ -103,6 +108,7 @@ function createCard(data, userId) {
 /*Функция-обработчик формы создания новой карточки*/
   function addCardSubmit (evt) {
     evt.preventDefault();
+    loadingStateRender(popupNewCard, true)
     const cardData = {
       name: inputAddTitle.value,
       link: inputAddLink.value,
@@ -112,12 +118,14 @@ function createCard(data, userId) {
     .then((data) => {
       addCard(data, placesList, data.owner._id)
     })
-
+    .then(() => {
+      formAddNewPlace.reset();
+    })
     .catch((err) =>{
       console.log(err);
     })
     .finally(() =>{
-      loadingStateRender(popupNewCard, true)
+      loadingStateRender(popupNewCard, false)
     })
     closePopup(popupNewCard);
   }

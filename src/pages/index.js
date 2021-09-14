@@ -11,11 +11,14 @@ import {closePopup, openPopupEvent, setValueFormEditor, submitValueFormProfile,
 import {popupEdit, popupNewCard, popupEditAvatar} from'../utils/constants.js';
 import {getProfileInfo, getCardsDataToServer} from '../components/api.js';
 import {profileInfoUpdate} from '../components/profile.js';
-
+import {loadingStateRender} from '../components/utils.js';
 //***PROFILE
 
 //Реализация открытия popup/form редактирования профиля
-editButton.addEventListener('click', setValueFormEditor)
+editButton.addEventListener('click', () =>{
+  setValueFormEditor(),
+  loadingStateRender(popupEdit, false);
+});
 
 
 
@@ -39,6 +42,7 @@ addButton.addEventListener('click', () => {
 
 //Реализация открытия popup смены аватарки
 editButtonAvatar.addEventListener('click', () =>{
+  formEditProfileAvatar.reset();
   openPopupEvent(popupEditAvatar);
   resetValidation(popupEditAvatar);
 })
