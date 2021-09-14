@@ -3,3 +3,7 @@
     display: block;
     padding: 35px 0 0;
 }
+
+.popup__label:first-of-type {
+    padding-top: 0;
+}
