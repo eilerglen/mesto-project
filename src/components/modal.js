@@ -20,18 +20,14 @@ function closePopup(popup) {
 //Функция закрытия popup по клавише ESC
 const closePopupEsc = (evt) => {
   if(evt.key === "Escape") {
-    popupList.forEach((elem) => {
-      closePopup(elem);
-    });
+    closePopup(document.querySelector(".popup_opened"));
   }
 }
 
 //Функция открытия popup по оверлею
 const closePopupOverlay = (evt) => {
   if(evt.target.classList.contains('popup')) {
-    popupList.forEach((popup) => {
-      closePopup(popup);
-    });
+  closePopup(evt.target);
   }
 }
 

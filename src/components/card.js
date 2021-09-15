@@ -73,7 +73,7 @@ function createCard(data, userId) {
       likeCard(cardItem._id)
       .then((res) => {
         updateCountLike(container, res);
-          e.classList.add('place__icon_active')
+        e.classList.add('place__icon_active')
         })
       .catch((err) => {
         console.log(err);

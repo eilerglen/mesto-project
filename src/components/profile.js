@@ -13,7 +13,7 @@ const setUserData = (data) => {
   profileAvatar.src = data.avatar;
 }
 
-//Инициализация значений полей и открытия popup редактирования
+//Предзаполнение полей ввода формы редактирования профиля данными из сервера
 const setValueInputFormProfile = (data) => {
   inputEditProfileName.value = data.name;
   inputEditProfileProf.value = data.about;

@@ -22,7 +22,6 @@ editButton.addEventListener('click', () =>{
 //Реализация простого закрытия popup редактирования профиля
 popupCloseEdit.addEventListener('click', () => {
   closePopup(popupEdit);
-  formEditProfileInfo.reset();
 });
 
 //Делаем сабмишн форме редактирования профиля
@@ -73,4 +72,7 @@ Promise.all([getProfileInfo(), getCardsDataToServer()])
   const currentUserId = userData._id;
   const dataCards = cards;
   renderCards(dataCards, currentUserId);
+})
+.catch((err) =>{
+  console.log(err);
 })
