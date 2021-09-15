@@ -5,7 +5,7 @@ export {createCard, addCard, addCardSubmit, renderCards};
 import {openImagePopup, closePopup} from './modal.js'
 import {popupImage, inputAddTitle, inputAddLink, popupNewCard} from '../utils/constants.js'
 import {popupCloseImage, formAddNewPlace} from '../utils/constants.js'
-import {loadingStateRender, updateCountLike} from './utils.js';
+import {loadingStateRender} from './utils.js';
 import {addNewCard, likeCard, dislikeCard, dropCard} from './api.js'
 import {placesList} from '../pages/index.js'
 
@@ -55,26 +55,25 @@ function createCard(data, userId) {
 
   ///****
 
+
    /*Функция, обновляющая счетчик лайков из сервера*/
    function cardLikeToggle (evt, container, cardItem) {
     const e = evt.target;
     if(e.classList.contains('place__icon_active')) {
-      e.classList.remove('place__icon_active');
       dislikeCard(cardItem._id)
       .then((res) => {
         updateCountLike(container, res);
-        console.log(res.likes.length);
+        e.classList.remove('place__icon_active');
       })
       .catch((err) => {
         console.log(err);
       })
     }
     else {
-      e.classList.add('place__icon_active')
       likeCard(cardItem._id)
       .then((res) => {
         updateCountLike(container, res);
-          console.log(res.likes.length);
+          e.classList.add('place__icon_active')
         })
       .catch((err) => {
         console.log(err);
@@ -82,6 +81,10 @@ function createCard(data, userId) {
     }
   }
 
+  //Функция-рендер, обновляющая счетчик лайков из сервера на странице
+  function updateCountLike(container, dataResponse) {
+    container.querySelector('.place__count-like').textContent = dataResponse.likes.length;
+  }
 
   /*Функция, определяющая, поставил ли текущий юзер лайк карточки или нет и задающая нужный флаг-селектор*/
   function defineCurrentUserLike(element, currentId, elem) {
@@ -99,9 +102,9 @@ function createCard(data, userId) {
   }
 
 /*Функция рендеринга карточек по массиву данных из сервера*/
-  function renderCards(arrayCards, userId){
-    arrayCards.forEach((card) =>{
-        addCard (card, placesList, userId);
+  function renderCards(arrayCards, userId) {
+    arrayCards.reverse().forEach((card) => {
+        addCard(card, placesList, userId);
       })
   }
 
@@ -117,9 +120,8 @@ function createCard(data, userId) {
     addNewCard({name: cardData.name, link: cardData.link})
     .then((data) => {
       addCard(data, placesList, data.owner._id)
-    })
-    .then(() => {
       formAddNewPlace.reset();
+      closePopup(popupNewCard);
     })
     .catch((err) =>{
       console.log(err);
@@ -127,7 +129,6 @@ function createCard(data, userId) {
     .finally(() =>{
       loadingStateRender(popupNewCard, false)
     })
-    closePopup(popupNewCard);
   }
 
 

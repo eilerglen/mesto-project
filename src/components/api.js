@@ -37,7 +37,7 @@ export function updateProfileInfo(name, about) {
       name: name,
       about: about,
     })
-  })
+  }) .then(getResponseData);
 }
 
 export function updateProfileAvatar(url) {

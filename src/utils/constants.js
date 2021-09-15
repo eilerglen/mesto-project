@@ -9,9 +9,10 @@ export {formsData, popupList, popupEdit, popupNewCard, popupImage,
 const formsData = {
   formSelector:'.popup__form',
   inputSelector:'.popup__input',
-  inputErrorClass: 'popup__input_type_error',
+  inputErrorClass: '.popup__input_type_error',
   submitButtonSelector: '.popup__button',
-  inActiveButtonClass: 'popup__button_disabled',
+  inActiveButtonClass: '.popup__button_disabled',
+  errorElem: '.popup__error',
   errorClass: '.popup__error_visible',
 }
 

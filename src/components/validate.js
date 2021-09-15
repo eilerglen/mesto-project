@@ -62,26 +62,26 @@ export function enableValidation(dataForm) {
 }
 
 //Сброс красной линии при невалидных данных
-function resetInputErr(popup) {
-  const inputList = Array.from(popup.querySelectorAll('.popup__input'));
+function resetInputErr(popup, dataForm) {
+  const inputList = Array.from(popup.querySelectorAll(dataForm.inputSelector));
   inputList.forEach((input) => {
-      input.classList.remove('popup__input_type_error');
+    input.classList.remove(dataForm.inputErrorClass);
   })
 }
 
 //Сброс сообщения о невалидности значения ввода
-function resetSpanErr(popup) {
-  const errorElementList = popup.querySelectorAll('.popup__error');
+function resetSpanErr(popup, dataForm) {
+  const errorElementList = Array.from(popup.querySelectorAll(dataForm.errorElem));
   errorElementList.forEach((errorElement)=> {
-      errorElement.classList.remove('popup__error_visible');
+      errorElement.classList.remove(dataForm.errorClass);
       errorElement.textContent = "";
   })
 }
 
 //Сброс ошибок валидации форм
-export function resetValidation(popup) {
-  resetSpanErr(popup)
-  resetInputErr(popup)
+export function resetValidation(popup, dataForm) {
+  resetInputErr(popup, dataForm);
+  resetSpanErr(popup, dataForm);
 }
 
 
